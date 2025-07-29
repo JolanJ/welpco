@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react"
 import { Shield } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 interface Welper {
   id: string
@@ -16,6 +17,7 @@ export default function FindingWelpersPage() {
   const [location, setLocation] = useState("")
   const [schedule, setSchedule] = useState("")
   const [serviceType, setServiceType] = useState("")
+  const router = useRouter()
 
   useEffect(() => {
     // Get parameters from URL
@@ -39,6 +41,10 @@ export default function FindingWelpersPage() {
       setProgress(prev => {
         if (prev >= 100) {
           clearInterval(timer)
+          // Navigate to email capture page after 5 seconds
+          setTimeout(() => {
+            router.push(`/services/email-capture?service=${serviceParam}&location=${locationParam}&schedule=${scheduleParam}&type=${typeParam}`)
+          }, 1000) // Wait 1 second after progress reaches 100%
           return 100
         }
         return Math.min(prev + increment, 100)
