@@ -77,7 +77,9 @@ export default function LandingPage() {
               Login
             </Link>
           </div>
-          <Button className="bg-white text-[#005C3C] hover:bg-gray-100 font-semibold px-6">Join Now</Button>
+          <Link href="/signup">
+            <Button className="bg-white text-[#005C3C] hover:bg-gray-100 font-semibold px-6">Join Now</Button>
+          </Link>
         </div>
       </nav>
 
@@ -203,7 +205,7 @@ export default function LandingPage() {
               <div className="w-16 h-16 bg-[#005C3C] rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <User className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Care</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Care</h3>
               <p className="text-gray-600">babysitter, child care, elderly care, special needs</p>
             </div>
 
@@ -212,7 +214,7 @@ export default function LandingPage() {
               <div className="w-16 h-16 bg-[#005C3C] rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <Heart className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Pet care</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Pet care</h3>
               <p className="text-gray-600">dog walks, pet grooming, aquarium and terrarium cleaning....</p>
             </div>
 
@@ -221,7 +223,7 @@ export default function LandingPage() {
               <div className="w-16 h-16 bg-[#005C3C] rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <GraduationCap className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Education</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Education</h3>
               <p className="text-gray-600">tutoring, music lessons</p>
             </div>
 
@@ -230,7 +232,7 @@ export default function LandingPage() {
               <div className="w-16 h-16 bg-[#005C3C] rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <Home className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">In-home maintenance</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">In-home maintenance</h3>
               <p className="text-gray-600">housekeeping, painting, organizing, moving.....</p>
             </div>
 
@@ -239,7 +241,7 @@ export default function LandingPage() {
               <div className="w-16 h-16 bg-[#005C3C] rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <Wrench className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Exterior maintenance</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Exterior maintenance</h3>
               <p className="text-gray-600">lawn-mowing, tree-planting, gardening, car washing.....</p>
             </div>
 
@@ -248,7 +250,7 @@ export default function LandingPage() {
               <div className="w-16 h-16 bg-[#005C3C] rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <Heart className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Health and wellness</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Health and wellness</h3>
               <p className="text-gray-600">meal preparation, personal trainer, dietician, nutritionist</p>
             </div>
 
@@ -257,7 +259,7 @@ export default function LandingPage() {
               <div className="w-16 h-16 bg-[#005C3C] rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <User className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Entertainment</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Entertainment</h3>
               <p className="text-gray-600">
                 catering, party-planning, magician, clown, server, assistant for party, bartender
               </p>
@@ -265,7 +267,7 @@ export default function LandingPage() {
 
             {/* Special Card - Looking for something else */}
             <div className="bg-[#005C3C] text-white p-8 rounded-2xl text-center">
-              <h3 className="text-xl font-semibold mb-3">Looking for something else?</h3>
+              <h3 className="text-xl font-bold mb-3">Looking for something else?</h3>
               <p className="text-gray-200 mb-6">You can tell us what you need and we can help!</p>
               <Button className="bg-white text-[#005C3C] hover:bg-gray-100 font-semibold w-full">Log in now</Button>
             </div>
@@ -309,7 +311,7 @@ export default function LandingPage() {
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0 text-[#4CA76A] font-bold text-3xl">1.</div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">
                       Find your
                       <br />
                       service
@@ -325,7 +327,7 @@ export default function LandingPage() {
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0 text-[#4CA76A] font-bold text-3xl">2.</div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">
                       Schedule
                       <br />
                       your service
@@ -340,7 +342,7 @@ export default function LandingPage() {
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0 text-[#4CA76A] font-bold text-3xl">3.</div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">
                       Your request
                       <br />
                       is completed

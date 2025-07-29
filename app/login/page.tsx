@@ -44,7 +44,7 @@ export default function LoginPage() {
           </div>
 
           {/* Welcome Message */}
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome to Welpco</h1>
+          <h1 className="text-3xl font-medium text-gray-900 mb-2">Welcome to Welpco</h1>
           <p className="text-gray-600 mb-8">
             Don't have an account?{" "}
             <Link href="/signup" className="text-[#005C3C] font-semibold hover:underline">
