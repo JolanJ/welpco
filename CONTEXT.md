@@ -16,7 +16,7 @@
 
 - **Primary Green:** `#005C3C` (Used for the main header, primary buttons, feature icons, and the "ticket-card" background).
 - **Dark Green:** `#00492F` (Used for the hero section background).
-- **Accent Green:** `#4CA76A` (Used for highlights, such as the numbers in the "How it works" section and the "Get Help Now" link).
+- **Accent Green:** `#4CA76A` (Used for highlights, such as the numbers in the "How it works" section, the "Get Help Now" link, and the progress bar).
 - **Light Gray (Hover/Active):** `#F3F5F9` (Used for the background of a clicked/active FAQ item).
 - **White:** `#FFFFFF` (Used for text on dark backgrounds, card backgrounds).
 - **Text (Dark):** `text-gray-900` (Primary text color for headings and important content).
@@ -33,6 +33,8 @@
   - **Section Titles:** `text-3xl lg:text-4xl font-bold` (font-weight 700)
   - **Sub-headings:** `text-xl font-bold` (font-weight 700)
   - **Page Titles:** `text-3xl font-medium` (font-weight 500) for login/signup pages
+  - **Service Selection Title:** `text-3xl font-medium` (font-weight 500) with Plus Jakarta Sans
+  - **Card Titles:** `text-lg font-bold` (font-weight 700) with Plus Jakarta Sans
   - **Body Text:** `text-gray-600`, `text-lg`
 
 ### Visual Style & Iconography
@@ -171,6 +173,14 @@ welpco/
   - Section headings and titles: font-weight 700 (bold)
   - Service category titles: font-weight 700 (bold)
 - **Navigation Updates:** Added proper navigation from landing page "Join Now" button to signup page.
+- **Service Selection Page:** Created a comprehensive service selection interface (`/find-service`) with:
+  - Progress bar with bubble indicator at 50% using `#4CA76A` color
+  - 8 service categories in a responsive 4-column grid layout
+  - Square-ish cards with dark green icon backgrounds (`#005C3C`)
+  - Plus Jakarta Sans typography with proper font weights
+  - Interactive selection with green border highlighting
+  - Continue button that navigates to specific service pages
+  - Full-width layout with `max-w-7xl` container
 
 ## 6. Current Status & Next Steps
 
@@ -192,6 +202,11 @@ welpco/
 - ✅ Service Providers page with Applicants/Favorites/Viewed/Hired tabs
 - ✅ Settings page with General Info, Membership Info, and Credit Card sections
 - ✅ Reusable Sidebar and Header components for consistent navigation
+- ✅ **Service Selection Flow**: Complete 4-step flow with service categories, location input, schedule selection, and service type selection
+  - Service Selection Page (`/find-service`) with 8 categories and 50% progress
+  - Location Input Page (`/services/location`) with 75% progress and streamlined UX
+  - Schedule Selection Page (`/services/schedule`) with 5 options and 75% progress
+  - Service Type Selection Page (`/services/type`) with 2 options and 100% progress
 
 ### 🎯 **New Pages Created:**
 - **Dashboard** (`/dashboard`) - Main user dashboard with service categories
@@ -200,6 +215,11 @@ welpco/
 - **Jobs** (`/jobs`) - Job management with Current/Previous tabs
 - **Service Providers** (`/service-providers`) - Provider management with 4 tabs
 - **Settings** (`/settings`) - Account settings with 3 sections
+- **Find Service** (`/find-service`) - Service selection page with 8 categories and 50% progress
+- **Location Input** (`/services/location`) - Location input page with 75% progress and streamlined design
+- **Schedule Selection** (`/services/schedule`) - Schedule selection page with 5 options and 75% progress
+- **Service Type Selection** (`/services/type`) - Service type selection page with 2 options and 100% progress
+- **Finding Welpers** (`/services/finding-welpers`) - Simulation page with 3 mock providers and 5-second progress bar
 
 ### 🔧 **Key Components:**
 - **Sidebar** - Reusable navigation with active state highlighting
@@ -214,7 +234,7 @@ welpco/
 - **Layout**: Consistent sidebar + header + main content structure
 - **Cards**: White background with gray borders and hover effects
 
-- 🔄 **Next:** Create individual registration pages for users (`/register/user`) and Welpers (`/register/welper`)
+- 🔄 **Next:** Define navigation from finding welpers page to complete the service request flow
 - 📋 **Future:** Backend integration with Supabase for authentication and data management
 
 ## 7. Recent Changes Summary
@@ -288,3 +308,58 @@ welpco/
   - Credit Card Info: Payment methods and billing history
 - Implemented consistent styling with action links
 - Added proper form structure for future backend integration 
+
+### Service Selection Flow Implementation
+- **Service Selection Page** (`/find-service`): Created comprehensive service selection interface with 8 categories
+  - Progress bar with bubble indicator at 50% using `#4CA76A` color
+  - 8 service categories: Care, Pet Care, Education, In-home Maintenance, Exterior Maintenance, Health and Wellness, Entertainment, and Health and Wellness (Building)
+  - Responsive 4-column grid layout with interactive card selection
+  - Plus Jakarta Sans typography with proper font weights
+  - Square-ish cards with dark green icon backgrounds (`#00492F`) and white icons
+  - Full-width layout with `max-w-7xl` container
+  - Hover effects with dark green background (`#00492F`) and white text transformation
+  - Lucide React icons with dynamic color changes
+
+- **Location Input Page** (`/services/location`): Created streamlined location input interface
+  - Progress bar with bubble indicator at 75% using `#4CA76A` color
+  - Same design pattern as service selection page for consistency
+  - Centered layout with "Where do you need the service?" title
+  - Rounded input field with green border (`#005C3C`) and map pin icon
+  - Rounded continue button with green background (`#005C3C`)
+  - Consistent spacing (mb-16) between title, input, and button
+  - Plus Jakarta Sans typography matching other pages
+  - Receives service category from URL parameters and passes to schedule page
+
+- **Schedule Selection Page** (`/services/schedule`): Created comprehensive schedule selection interface
+  - Progress bar with bubble indicator at 75% using `#4CA76A` color
+  - 5 schedule options: Today, Within 3 days, Within a Week, I'm Flexible, Choose Dates
+  - Rounded option cards with green borders and interactive selection
+  - Calendar icon for "Choose Dates" option with dynamic color changes
+  - Plus Jakarta Sans typography with proper font weights
+  - Receives service and location from URL parameters and passes to service type page
+
+- **Service Type Selection Page** (`/services/type`): Created service type selection interface
+  - Progress bar with bubble indicator at 100% using `#4CA76A` color (final step)
+  - 2 service types: "recurring services" and "One-time service"
+  - Card-based layout with dark green icon backgrounds (`#00492F`)
+  - Building2 icon from Lucide React
+  - Interactive selection with green border highlighting
+  - Receives service, location, and schedule from URL parameters and passes to finding welpers page
+
+- **Finding Welpers Page** (`/services/finding-welpers`): Created simulation page for finding nearby service providers
+  - Header with WELPCO logo and consistent branding
+  - Main message: "Every Welper you encounter on WELPCO has undergone a background check, ensuring 100% assurance."
+  - 3 mock Welper profiles with different names (Sansa Stark, Arya Stark, Brienne Tarth)
+  - Profile cards with 5-star ratings, shield verification icons, and placeholder images
+  - Simulation progress bar that animates from 0% to 100% over exactly 5 seconds
+  - Smooth animation with 50ms intervals for realistic loading effect
+  - Receives service, location, schedule, and type parameters from URL
+  - No progress bar indicator (as requested for simulation page)
+
+- **Complete Flow**: 5-step service selection process
+  - Step 1: Service category selection (`/find-service`) - 50% progress
+  - Step 2: Location input (`/services/location`) - 75% progress
+  - Step 3: Schedule selection (`/services/schedule`) - 75% progress
+  - Step 4: Service type selection (`/services/type`) - 100% progress
+  - Step 5: Finding Welpers (`/services/finding-welpers`) - Simulation with 5-second progress bar
+  - Final: Next step (navigation to be defined) - Complete service request 
