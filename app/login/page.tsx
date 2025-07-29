@@ -1,9 +1,13 @@
+"use client"
+
+import { useState } from "react"
 import type React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { EyeOff } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg {...props} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -33,6 +37,62 @@ const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
 )
 
 export default function LoginPage() {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
+
+  // Mock user data
+  const mockUsers = [
+    {
+      email: "star@welpco.com",
+      password: "password123",
+      name: "Star Shah",
+      role: "Admin"
+    },
+    {
+      email: "user@welpco.com", 
+      password: "password123",
+      name: "John Doe",
+      role: "User"
+    },
+    {
+      email: "welper@welpco.com",
+      password: "password123", 
+      name: "Jane Smith",
+      role: "Welper"
+    }
+  ]
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsLoading(true)
+    setError("")
+
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 1000))
+
+    // Check if user exists in mock data
+    const user = mockUsers.find(u => u.email === email && u.password === password)
+
+    if (user) {
+      // Store user data in localStorage (in a real app, this would be a JWT token)
+      localStorage.setItem("welpco_user", JSON.stringify({
+        email: user.email,
+        name: user.name,
+        role: user.role
+      }))
+      
+      // Redirect to dashboard
+      router.push("/dashboard")
+    } else {
+      setError("Invalid email or password")
+    }
+    
+    setIsLoading(false)
+  }
+
   return (
     <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2">
       {/* Left Column - Login Form */}
@@ -53,7 +113,13 @@ export default function LoginPage() {
           </p>
 
           {/* Form */}
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            {error && (
+              <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg text-sm">
+                {error}
+              </div>
+            )}
+
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                 Email / Username
@@ -64,7 +130,10 @@ export default function LoginPage() {
                 type="email"
                 autoComplete="email"
                 required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                placeholder="Enter your email"
               />
             </div>
 
@@ -79,7 +148,10 @@ export default function LoginPage() {
                   type="password"
                   autoComplete="current-password"
                   required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg pr-10"
+                  placeholder="Enter your password"
                 />
                 <button type="button" className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
                   <EyeOff className="h-5 w-5" />
@@ -105,8 +177,12 @@ export default function LoginPage() {
 
             {/* Sign In Button */}
             <div className="pt-4">
-              <Button type="submit" className="w-full bg-gray-300 hover:bg-gray-400 text-gray-700 py-6 text-lg">
-                Sign in
+              <Button 
+                type="submit" 
+                disabled={isLoading}
+                className="w-full bg-gray-300 hover:bg-gray-400 text-gray-700 py-6 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isLoading ? "Signing in..." : "Sign in"}
               </Button>
             </div>
           </form>
@@ -118,6 +194,16 @@ export default function LoginPage() {
               Sign up
             </Link>
           </p>
+
+          {/* Mock Login Info */}
+          <div className="mt-8 p-4 bg-gray-50 rounded-lg">
+            <h3 className="text-sm font-medium text-gray-900 mb-2">Mock Login Credentials:</h3>
+            <div className="text-xs text-gray-600 space-y-1">
+              <div><strong>Admin:</strong> star@welpco.com / password123</div>
+              <div><strong>User:</strong> user@welpco.com / password123</div>
+              <div><strong>Welper:</strong> welper@welpco.com / password123</div>
+            </div>
+          </div>
         </div>
       </div>
 
