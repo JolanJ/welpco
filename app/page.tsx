@@ -387,7 +387,7 @@ export default function LandingPage() {
                       />
                     </svg>
                   </div>
-                  <span className="text-white text-lg font-medium">Satisfaction Guarantee</span>
+                  <span className="text-white text-2xl font-medium">Satisfaction Guarantee</span>
                 </div>
 
                 {/* Local service providers */}
@@ -395,7 +395,7 @@ export default function LandingPage() {
                   <div className="w-12 h-12 flex items-center justify-center">
                     <MapPin className="w-8 h-8 text-white" />
                   </div>
-                  <span className="text-white text-lg font-medium">Local service providers</span>
+                  <span className="text-white text-2xl font-medium">Local service providers</span>
                 </div>
 
                 {/* Flexible Appointments */}
@@ -403,7 +403,7 @@ export default function LandingPage() {
                   <div className="w-12 h-12 flex items-center justify-center">
                     <Calendar className="w-8 h-8 text-white" />
                   </div>
-                  <span className="text-white text-lg font-medium">Flexible Appointments</span>
+                  <span className="text-white text-2xl font-medium">Flexible Appointments</span>
                 </div>
               </div>
 
@@ -421,7 +421,7 @@ export default function LandingPage() {
                       />
                     </svg>
                   </div>
-                  <span className="text-white text-lg font-medium">Suitable Rates</span>
+                  <span className="text-white text-2xl font-medium">Suitable Rates</span>
                 </div>
 
                 {/* Fast 24-Hour Service */}
@@ -429,7 +429,7 @@ export default function LandingPage() {
                   <div className="w-12 h-12 flex items-center justify-center">
                     <Clock className="w-8 h-8 text-white" />
                   </div>
-                  <span className="text-white text-lg font-medium">Fast 24-Hour Service</span>
+                  <span className="text-white text-2xl font-medium">Fast 24-Hour Service</span>
                 </div>
 
                 {/* 100% Commitment-Free */}
@@ -444,7 +444,7 @@ export default function LandingPage() {
                       />
                     </svg>
                   </div>
-                  <span className="text-white text-lg font-medium">100% Commitment-Free</span>
+                  <span className="text-white text-2xl font-medium">100% Commitment-Free</span>
                 </div>
               </div>
             </div>
