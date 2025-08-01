@@ -84,8 +84,12 @@ export default function LoginPage() {
         role: user.role
       }))
       
-      // Redirect to dashboard
-      router.push("/dashboard")
+      // Redirect based on user role
+      if (user.role === "Welper") {
+        router.push("/service-provider-dashboard")
+      } else {
+        router.push("/dashboard")
+      }
     } else {
       setError("Invalid email or password")
     }

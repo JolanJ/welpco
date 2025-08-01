@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import Sidebar from "@/components/sidebar"
 import Header from "@/components/header"
+import DemoHelper from "@/components/demo-helper"
 import {
   Baby,
   PawPrint,
@@ -94,6 +95,9 @@ export default function DashboardPage() {
 
         {/* Main Content Area */}
         <main className="flex-1 p-8">
+        
+        {/* Demo Helper */}
+        <DemoHelper />
                      {/* Greeting */}
            <div className="mb-8">
              <h1 className="text-3xl font-bold text-gray-900 mb-2">Hey {user?.name || "User"},</h1>

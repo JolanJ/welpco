@@ -60,6 +60,17 @@ export default function Header({ user }: HeaderProps) {
             </div>
             <ChevronDown className="w-4 h-4 text-gray-400" />
           </div>
+          
+          {/* Quick Logout for Demo */}
+          <button
+            onClick={() => {
+              localStorage.removeItem('welpco_user');
+              window.location.href = '/login';
+            }}
+            className="px-3 py-1 text-xs bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+          >
+            Logout
+          </button>
         </div>
       </div>
     </header>
