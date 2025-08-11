@@ -23,7 +23,11 @@ export default function ServiceProviderSidebar() {
     <div className="w-64 bg-white text-gray-900 flex flex-col border-r border-gray-200">
       {/* Logo */}
       <div className="p-6 border-b border-gray-200">
-        <div className="text-2xl font-bold text-[#005C3C]">WELPCO®</div>
+        <img 
+          src="/logo.png" 
+          alt="WELPCO" 
+          className="h-8 w-auto"
+        />
       </div>
 
       {/* Navigation */}

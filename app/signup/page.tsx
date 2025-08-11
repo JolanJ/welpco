@@ -57,7 +57,7 @@ export default function SignupPage() {
               <h2 className="text-xl font-bold text-white mb-2">I want to become a Welper</h2>
               <p className="text-gray-200 mb-6 flex-grow">Apply to provide services in your area</p>
               <div className="flex justify-center mt-auto">
-                <Link href="/register/welper">
+                <Link href="/find-job-sp">
                   <Button className="bg-white text-[#005C3C] hover:bg-gray-100 font-semibold px-8 py-3 rounded-full">
                     Become a Welper
                   </Button>

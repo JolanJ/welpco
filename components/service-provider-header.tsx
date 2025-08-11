@@ -20,10 +20,7 @@ export default function ServiceProviderHeader() {
   return (
     <header className="bg-white border-b border-gray-200 px-6 py-4">
       <div className="flex items-center justify-between">
-        {/* Left side - Logo */}
-        <div className="flex items-center">
-          <h1 className="text-[#005C3C] text-2xl font-bold">WELPCO</h1>
-        </div>
+       
 
         {/* Center - Search */}
         <div className="flex-1 max-w-md mx-8">
@@ -70,16 +67,7 @@ export default function ServiceProviderHeader() {
              <ChevronDown className="h-4 w-4 text-gray-600" />
            </div>
            
-           {/* Quick Logout for Demo */}
-           <button
-             onClick={() => {
-               localStorage.removeItem('welpco_user');
-               window.location.href = '/login';
-             }}
-             className="ml-4 px-3 py-1 text-xs bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
-           >
-             Logout
-           </button>
+           
         </div>
       </div>
     </header>

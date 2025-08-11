@@ -83,8 +83,8 @@ export default function FindServicePage() {
 
   const handleContinue = () => {
     if (selectedCategory) {
-      // Navigate directly to the location page with the selected category
-      window.location.href = `/services/location?service=${selectedCategory}`
+      // Navigate directly to the opportunities page with the selected job category
+      window.location.href = `/register/welper/opportunities?service=${selectedCategory}`
     }
   }
 
@@ -122,7 +122,7 @@ export default function FindServicePage() {
         {/* Title */}
         <div className="text-center mb-12">
           <h1 className="text-3xl font-medium text-gray-900 mb-4" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
-            What kind of service do you need?
+          What kind of job you are looking for?
           </h1>
         </div>
 

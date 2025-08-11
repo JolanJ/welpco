@@ -20,8 +20,15 @@ export default function LocationPage() {
 
   const handleContinue = () => {
     if (location.trim()) {
-      // Navigate directly to the schedule page
-      window.location.href = `/services/schedule?service=${service}&location=${encodeURIComponent(location)}`
+      // Check if this is a welper registration flow by looking at the referrer
+      const referrer = document.referrer
+      if (referrer.includes('find-job-sp')) {
+        // Navigate to welper opportunities page
+        window.location.href = `/register/welper/opportunities?service=${service}&location=${encodeURIComponent(location)}`
+      } else {
+        // Navigate directly to the schedule page for regular users
+        window.location.href = `/services/schedule?service=${service}&location=${encodeURIComponent(location)}`
+      }
     }
   }
 
