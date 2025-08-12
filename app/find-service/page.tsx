@@ -11,8 +11,7 @@ import {
   Wrench, 
   Leaf, 
   Heart, 
-  PartyPopper, 
-  Building2 
+  PartyPopper
 } from "lucide-react"
 
 interface ServiceCategory {
@@ -68,12 +67,6 @@ export default function FindServicePage() {
       title: "Entertainment",
       description: "catering, party-planning, magician, clown, server, assist.....",
       icon: <PartyPopper className="w-8 h-8 text-[#005C3C]" />
-    },
-    {
-      id: "health-wellness-2",
-      title: "Health and wellness",
-      description: "Take care of your loved ones by caring their health and wellness",
-      icon: <Building2 className="w-8 h-8 text-[#005C3C]" />
     }
   ]
 
@@ -83,8 +76,25 @@ export default function FindServicePage() {
 
   const handleContinue = () => {
     if (selectedCategory) {
-      // Navigate directly to the location page with the selected category
-      window.location.href = `/services/location?service=${selectedCategory}`
+      // Navigate to the appropriate details page based on service category
+      if (selectedCategory === "care") {
+        window.location.href = `/services/care-type?service=${selectedCategory}`
+      } else if (selectedCategory === "pet-care") {
+        window.location.href = `/services/pet-care-type?service=${selectedCategory}`
+      } else if (selectedCategory === "health-wellness") {
+        window.location.href = `/services/health-wellness-type?service=${selectedCategory}`
+      } else if (selectedCategory === "entertainment") {
+        window.location.href = `/services/entertainment-type?service=${selectedCategory}`
+      } else if (selectedCategory === "education") {
+        window.location.href = `/services/education-type?service=${selectedCategory}`
+      } else if (selectedCategory === "in-home-maintenance") {
+        window.location.href = `/services/in-home-maintenance-type?service=${selectedCategory}`
+      } else if (selectedCategory === "exterior-maintenance") {
+        window.location.href = `/services/exterior-maintenance-type?service=${selectedCategory}`
+      } else {
+        // For other services, navigate directly to location page
+        window.location.href = `/services/location?service=${selectedCategory}`
+      }
     }
   }
 

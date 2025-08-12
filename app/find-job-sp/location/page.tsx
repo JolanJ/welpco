@@ -44,7 +44,7 @@ export default function WelperLocationPage() {
   const handleJoinNow = () => {
     if (location.trim()) {
       // Navigate to the next step in welper registration
-      window.location.href = `/register/welper/verification?service=${service}&services=${encodeURIComponent(services)}&experience=${encodeURIComponent(experience)}&rate=${encodeURIComponent(rate)}&firstName=${encodeURIComponent(firstName)}&lastName=${encodeURIComponent(lastName)}&gender=${encodeURIComponent(gender)}&dob=${encodeURIComponent(dateOfBirth)}&heard=${encodeURIComponent(heardAbout)}&location=${encodeURIComponent(location)}&range=${range}`
+      window.location.href = '/login'
     }
   }
 

@@ -68,12 +68,6 @@ export default function FindServicePage() {
       title: "Entertainment",
       description: "catering, party-planning, magician, clown, server, assist.....",
       icon: <PartyPopper className="w-8 h-8 text-[#005C3C]" />
-    },
-    {
-      id: "health-wellness-2",
-      title: "Health and wellness",
-      description: "Take care of your loved ones by caring their health and wellness",
-      icon: <Building2 className="w-8 h-8 text-[#005C3C]" />
     }
   ]
 
@@ -83,8 +77,25 @@ export default function FindServicePage() {
 
   const handleContinue = () => {
     if (selectedCategory) {
-      // Navigate directly to the opportunities page with the selected job category
-      window.location.href = `/register/welper/opportunities?service=${selectedCategory}`
+      // Navigate to the appropriate type selection page based on service category
+      if (selectedCategory === "care") {
+        window.location.href = `/find-job-sp/care-type?service=${selectedCategory}`
+      } else if (selectedCategory === "pet-care") {
+        window.location.href = `/find-job-sp/pet-care-type?service=${selectedCategory}`
+      } else if (selectedCategory === "health-wellness") {
+        window.location.href = `/find-job-sp/health-wellness-type?service=${selectedCategory}`
+      } else if (selectedCategory === "entertainment") {
+        window.location.href = `/find-job-sp/entertainment-type?service=${selectedCategory}`
+      } else if (selectedCategory === "education") {
+        window.location.href = `/find-job-sp/education-type?service=${selectedCategory}`
+      } else if (selectedCategory === "in-home-maintenance") {
+        window.location.href = `/find-job-sp/in-home-maintenance-type?service=${selectedCategory}`
+      } else if (selectedCategory === "exterior-maintenance") {
+        window.location.href = `/find-job-sp/exterior-maintenance-type?service=${selectedCategory}`
+      } else {
+        // For other services, navigate directly to location page
+        window.location.href = `/find-job-sp/location?service=${selectedCategory}`
+      }
     }
   }
 
