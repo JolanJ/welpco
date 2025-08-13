@@ -17,7 +17,7 @@ export default function SignupPage() {
         <div className="h-full flex items-center justify-center p-8">
           <div className="relative max-w-md w-full">
             <Image
-              src="/placeholder.svg?height=600&width=400&text=Father+and+baby+with+toys"
+              src="/Image.png?height=600&width=500&text=Father+and+baby+with+toys"
               alt="Father and baby playing with toys"
               width={400}
               height={600}
@@ -29,41 +29,48 @@ export default function SignupPage() {
         </div>
       </div>
 
-      {/* Right Column - Content */}
-      <div className="flex flex-col items-center justify-center p-8 lg:p-12 bg-white">
-        <div className="w-full max-w-md">
-          {/* Main Heading */}
-          <h1 className="text-3xl lg:text-4xl font-medium text-gray-900 text-center mb-12">
-            How do you want to continue?
-          </h1>
-
-          {/* Choice Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Card 1: I need a service */}
-            <div className="bg-[#005C3C] rounded-2xl p-8 shadow-xl flex flex-col h-full">
-              <h2 className="text-xl font-bold text-white mb-2">I need a service</h2>
-              <p className="text-gray-200 mb-6 flex-grow">Search for the service you need</p>
-              <div className="flex justify-center mt-auto">
-                <Link href="/find-service">
-                  <Button className="bg-white text-[#005C3C] hover:bg-gray-100 font-semibold px-8 py-3 rounded-full">
-                    Find a service
-                  </Button>
-                </Link>
+             {/* Right Column - Content */}
+       <div className="flex flex-col items-center justify-center p-4 lg:p-8 bg-white">
+                   <div className="w-full max-w-2.5xl">
+            {/* Main Heading */}
+            <h1 className="text-3xl lg:text-4xl font-medium text-gray-900 text-center mb-10">
+              How do you want to<br />
+              continue?
+            </h1>
+            
+            {/* Choice Cards */}
+           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
+                                       {/* Card 1: I need a service */}
+              <div className="bg-[#005C3C] rounded-2xl p-10 shadow-xl flex flex-col h-full min-h-[280px] text-center">
+                <h2 className="text-xl font-bold text-white mb-4">I need a service</h2>
+                                <p className="text-gray-200 mb-8 flex-grow">
+                  Search for the service<br />
+                  you need
+                </p>
+                <div className="flex justify-center mt-auto">
+                                     <Link href="/find-service">
+                     <Button className="bg-white text-[#005C3C] hover:bg-gray-100 font-semibold px-8 py-3 rounded-full text-xl">
+                       Find a service
+                     </Button>
+                   </Link>
+                </div>
               </div>
-            </div>
 
-            {/* Card 2: I want to become a Welper */}
-            <div className="bg-[#005C3C] rounded-2xl p-8 shadow-xl flex flex-col h-full">
-              <h2 className="text-xl font-bold text-white mb-2">I want to become a Welper</h2>
-              <p className="text-gray-200 mb-6 flex-grow">Apply to provide services in your area</p>
-              <div className="flex justify-center mt-auto">
-                <Link href="/find-job-sp">
-                  <Button className="bg-white text-[#005C3C] hover:bg-gray-100 font-semibold px-8 py-3 rounded-full">
-                    Become a Welper
-                  </Button>
-                </Link>
+              {/* Card 2: I want to become a Welper */}
+              <div className="bg-[#005C3C] rounded-2xl p-10 shadow-xl flex flex-col h-full min-h-[280px] text-center">
+                <h2 className="text-xl font-bold text-white mb-4">I want to become a Welper</h2>
+                                 <p className="text-gray-200 mb-8 flex-grow">
+                   Apply to provide services<br />
+                   in your area
+                 </p>
+                <div className="flex justify-center mt-auto">
+                                     <Link href="/find-job-sp">
+                     <Button className="bg-white text-[#005C3C] hover:bg-gray-100 font-semibold px-8 py-3 rounded-full text-xl">
+                       Become a Welper
+                     </Button>
+                   </Link>
+                </div>
               </div>
-            </div>
           </div>
         </div>
       </div>
