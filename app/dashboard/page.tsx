@@ -9,12 +9,13 @@ import Sidebar from "@/components/sidebar"
 import Header from "@/components/header"
 import DemoHelper from "@/components/demo-helper"
 import {
-  Baby,
+  Users,
   PawPrint,
   GraduationCap,
   Wrench,
-  Heart as HeartIcon,
-  Ticket,
+  Leaf,
+  Heart,
+  PartyPopper,
 } from "lucide-react"
 
 export default function DashboardPage() {
@@ -53,33 +54,38 @@ export default function DashboardPage() {
   const serviceCategories = [
     {
       title: "Care",
-      icon: Baby,
+      icon: Users,
       description: "babysitter, child care, elderly care, special needs",
     },
     {
       title: "Pet care",
       icon: PawPrint,
-      description: "dog walks, pet grooming, aquarium and terrarium clean..",
+      description: "dog walks, pet grooming, aquarium and terrarium cleaning",
     },
     {
       title: "Education",
       icon: GraduationCap,
-      description: "Help your children's with their education",
+      description: "tutoring, music lessons, academic support",
+    },
+    {
+      title: "In-home maintenance",
+      icon: Wrench,
+      description: "housekeeping, painting, organizing, moving, furniture assembly",
     },
     {
       title: "Exterior maintenance",
-      icon: Wrench,
-      description: "lawn-mowing, tree-planting, gardening, car washing.......",
+      icon: Leaf,
+      description: "lawn-mowing, tree-planting, gardening, car washing, gutter cleaning",
     },
     {
       title: "Health and wellness",
-      icon: HeartIcon,
+      icon: Heart,
       description: "meal preparation, personal trainer, dietician, nutritionist",
     },
     {
       title: "Entertainment",
-      icon: Ticket,
-      description: "catering, party-planning, magician, clown, server, ass....",
+      icon: PartyPopper,
+      description: "catering, party-planning, magician, clown, server, assistant",
     },
   ]
 
@@ -105,11 +111,11 @@ export default function DashboardPage() {
            </div>
 
                      {/* Service Categories Grid */}
-           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
              {serviceCategories.map((service, index) => (
                <Link
                  key={index}
-                 href="/care-request"
+                 href="/dashboard/care-request"
                  className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow cursor-pointer block"
                >
                  <div className="flex items-center space-x-4 mb-4">

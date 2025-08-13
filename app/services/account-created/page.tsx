@@ -1,10 +1,12 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { Check } from 'lucide-react';
+import { useEffect } from 'react';
 
 export default function AccountCreatedPage() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   
   const service = searchParams.get('service');
   const location = searchParams.get('location');
@@ -14,6 +16,15 @@ export default function AccountCreatedPage() {
   const firstName = searchParams.get('firstName');
   const lastName = searchParams.get('lastName');
   const hearAboutUs = searchParams.get('hearAboutUs');
+
+  // Redirect to login after 3 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      router.push('/login');
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [router]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -54,8 +65,11 @@ export default function AccountCreatedPage() {
                 <Check className="w-6 h-6 text-[#005C3C]" />
               </div>
             </div>
-            <p className="text-white text-lg font-medium">
+            <p className="text-white text-lg font-medium mb-2">
               Account Created!
+            </p>
+            <p className="text-gray-200 text-sm">
+              Redirecting to login in 3 seconds...
             </p>
           </div>
         </div>
