@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import ServiceProviderSidebar from '@/components/service-provider-sidebar';
-import ServiceProviderHeader from '@/components/service-provider-header';
+import Sidebar from '@/components/sidebar';
+import Header from '@/components/header';
 import DemoHelper from '@/components/demo-helper';
 import { 
   User, 
@@ -11,13 +11,17 @@ import {
   Share2, 
   Edit, 
   Calendar, 
-  PawPrint, 
+  Users, 
   Clock,
   Heart,
   Settings,
   Power,
   X,
-  Copy
+  Copy,
+  MapPin,
+  Phone,
+  Mail,
+  CreditCard
 } from 'lucide-react';
 
 interface User {
@@ -26,31 +30,49 @@ interface User {
   role: string;
 }
 
-const previousJobs = [
+const recentServices = [
   {
-    title: "Pet care",
-    icon: PawPrint,
-    date: "2 days ago"
+    title: "Child Care",
+    icon: Users,
+    date: "2 days ago",
+    status: "Completed"
   },
   {
-    title: "Care",
-    icon: User,
-    date: "4 days ago"
+    title: "House Cleaning",
+    icon: Settings,
+    date: "1 week ago",
+    status: "Completed"
   }
 ];
 
-const lastJobs = [
+const upcomingServices = [
   {
-    title: "baby sitter needed for 1 child in at downtown, London",
-    category: "Child Care"
+    title: "Pet Care - Dog Walking",
+    provider: "Sarah Wilson",
+    date: "Tomorrow",
+    time: "10:00 AM"
   }
 ];
 
-export default function ServiceProviderProfile() {
+const favoriteProviders = [
+  {
+    name: "Jennifer White",
+    service: "Child Care",
+    rating: 4.8,
+    image: "/placeholder-user.jpg"
+  },
+  {
+    name: "Michael Brown",
+    service: "House Cleaning",
+    rating: 4.9,
+    image: "/placeholder-user.jpg"
+  }
+];
+
+export default function CustomerProfile() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [showShareModal, setShowShareModal] = useState(false);
-  const [showCalendarModal, setShowCalendarModal] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const router = useRouter();
 
@@ -74,17 +96,9 @@ export default function ServiceProviderProfile() {
     setShowShareModal(false);
   };
 
-  const handleViewCalendar = () => {
-    setShowCalendarModal(true);
-  };
-
-  const handleCloseCalendarModal = () => {
-    setShowCalendarModal(false);
-  };
-
   const handleCopyLink = async () => {
     try {
-      await navigator.clipboard.writeText('https://welpco.com/profile/jennifer-white');
+      await navigator.clipboard.writeText('https://welpco.com/profile/star-shah');
       console.log('Profile link copied to clipboard!');
     } catch (err) {
       console.error('Failed to copy link:', err);
@@ -92,7 +106,7 @@ export default function ServiceProviderProfile() {
   };
 
   const handleSocialShare = (platform: string) => {
-    const url = 'https://welpco.com/profile/jennifer-white';
+    const url = 'https://welpco.com/profile/star-shah';
     const text = 'Check out my profile on WELPCO!';
     
     let shareUrl = '';
@@ -133,7 +147,7 @@ export default function ServiceProviderProfile() {
   }
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-50">
       {/* Mobile Sidebar Overlay */}
       {sidebarOpen && (
         <div 
@@ -144,11 +158,11 @@ export default function ServiceProviderProfile() {
       
       {/* Sidebar */}
       <div className={`fixed lg:static inset-y-0 left-0 z-50 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 transition-transform duration-300 ease-in-out`}>
-        <ServiceProviderSidebar onClose={() => setSidebarOpen(false)} />
+        <Sidebar currentPath="/dashboard/profile" onClose={() => setSidebarOpen(false)} />
       </div>
       
       <div className="flex-1 flex flex-col min-w-0">
-        <ServiceProviderHeader onMenuClick={toggleSidebar} />
+        <Header onMenuClick={toggleSidebar} />
         
         <main className="flex-1 p-4 sm:p-6 lg:p-8">
           <div className="max-w-7xl mx-auto">
@@ -157,7 +171,7 @@ export default function ServiceProviderProfile() {
             <DemoHelper />
             
             {/* Title and Share Button Row */}
-            <div className="flex justify-between items-center mb-4 sm:mb-6 ml-2 sm:ml-4 lg:ml-8 mr-2 sm:mr-4 lg:mr-8">
+            <div className="flex justify-between items-center mb-4 sm:mb-6">
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Profile</h1>
               <button 
                 onClick={handleShare}
@@ -171,13 +185,13 @@ export default function ServiceProviderProfile() {
             {/* Main Content and Right Sidebar */}
             <div className="flex flex-col lg:flex-row">
               {/* Main Content */}
-              <div className="w-full lg:max-w-4xl lg:ml-8 lg:mr-8 mb-6 lg:mb-0">
+              <div className="w-full lg:max-w-4xl lg:mr-8 mb-6 lg:mb-0">
                 {/* Profile Section */}
                 <div className="bg-white rounded-lg p-4 sm:p-6 border border-gray-200 mb-4 sm:mb-6">
                   <div className="flex flex-col sm:flex-row sm:items-start space-y-4 sm:space-y-0 sm:space-x-6">
                     {/* Profile Picture */}
                     <div className="flex-shrink-0">
-                      <div className="w-20 h-20 sm:w-24 sm:h-24 bg-yellow-400 rounded-lg flex items-center justify-center mb-2">
+                      <div className="w-20 h-20 sm:w-24 sm:h-24 bg-pink-400 rounded-lg flex items-center justify-center mb-2">
                         <User className="h-10 w-10 sm:h-12 sm:w-12 text-white" />
                       </div>
                       <button className="text-[#005C3C] text-sm font-medium hover:underline">
@@ -189,16 +203,19 @@ export default function ServiceProviderProfile() {
                     <div className="flex-1">
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 space-y-2 sm:space-y-0">
                         <div className="flex items-center space-x-2">
-                          <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Jennifer White</h2>
+                          <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Star Shah</h2>
                           <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-[#005C3C]" />
                         </div>
                         <button className="text-[#005C3C] font-medium hover:underline text-sm sm:text-base">
                           Edit Profile
                         </button>
                       </div>
-                      <p className="text-gray-600 mb-1 text-sm sm:text-base">Downtown, London</p>
-                      <p className="text-gray-600 mb-1 text-sm sm:text-base">Joined 2024</p>
-                      <p className="text-gray-600 text-sm sm:text-base">Total Jobs 24 | 20 Reviews</p>
+                      <p className="text-gray-600 mb-1 text-sm sm:text-base flex items-center">
+                        <MapPin className="h-4 w-4 mr-1" />
+                        Downtown, London
+                      </p>
+                      <p className="text-gray-600 mb-1 text-sm sm:text-base">Member since 2024</p>
+                      <p className="text-gray-600 text-sm sm:text-base">24 Services Booked | 18 Reviews Given</p>
                     </div>
                   </div>
                 </div>
@@ -206,79 +223,102 @@ export default function ServiceProviderProfile() {
                 {/* Bio Section */}
                 <div className="bg-white rounded-lg p-4 sm:p-6 border border-gray-200 mb-4 sm:mb-6">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4 space-y-2 sm:space-y-0">
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-900">Bio</h3>
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-900">About Me</h3>
                     <button className="text-[#005C3C] font-medium hover:underline text-sm sm:text-base">
                       Edit Bio
                     </button>
                   </div>
                   <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
-                    Hello! I'm Star shah a devoted parent and homeowner who values quality care and reliable service. With a busy schedule and a growing family, I rely on trusted professionals for babysitting and home care needs. Using WELPCO I ensure that my loved ones and home are always in good hands. The platform's vetted and background-checked caregivers provide me with peace of mind, allowing me to focus on my work and personal commitments. From expert babysitters to dedicated home care professionals, I count on WELPCO to connect me with the best services available.
+                    Hello! I'm Star Shah, a devoted parent and homeowner who values quality care and reliable service. With a busy schedule and a growing family, I rely on trusted professionals for babysitting and home care needs. Using WELPCO I ensure that my loved ones and home are always in good hands. The platform's vetted and background-checked caregivers provide me with peace of mind, allowing me to focus on my work and personal commitments. From expert babysitters to dedicated home care professionals, I count on WELPCO to connect me with the best services available.
                   </p>
                 </div>
 
-                {/* Verified Info Section */}
-                <div className="bg-white rounded-lg p-4 sm:p-6 border border-gray-200">
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Verified Info</h3>
+                {/* Contact Info Section */}
+                <div className="bg-white rounded-lg p-4 sm:p-6 border border-gray-200 mb-4 sm:mb-6">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Contact Information</h3>
                   <div className="space-y-4 sm:space-y-6">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
-                      <p className="text-gray-700 text-sm sm:text-base">welpco@gmail.com</p>
+                      <div className="flex items-center space-x-2">
+                        <Mail className="h-4 w-4 text-gray-500" />
+                        <p className="text-gray-700 text-sm sm:text-base">star@welpco.com</p>
+                      </div>
                       <button className="text-[#005C3C] font-medium hover:underline text-sm sm:text-base">
                         Edit Email
                       </button>
                     </div>
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
-                      <p className="text-gray-700 text-sm sm:text-base">+1 450 518 5188</p>
+                      <div className="flex items-center space-x-2">
+                        <Phone className="h-4 w-4 text-gray-500" />
+                        <p className="text-gray-700 text-sm sm:text-base">+1 450 518 5188</p>
+                      </div>
                       <button className="text-[#005C3C] font-medium hover:underline text-sm sm:text-base">
                         Edit Phone
                       </button>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Spacer to center the sidebar on desktop */}
-              <div className="hidden lg:block flex-1"></div>
-
-              {/* Right Sidebar - Centered */}
-              <div className="w-full lg:w-80 space-y-4 sm:space-y-6 lg:ml-8 lg:mr-8">
-                {/* Calendar Widget */}
+                {/* Payment Methods Section */}
                 <div className="bg-white rounded-lg p-4 sm:p-6 border border-gray-200">
-                  <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">Calendar</h3>
-                  <div className="flex justify-center space-x-2 sm:space-x-3 mb-4">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 border border-green-300 rounded-full flex items-center justify-center">
-                      <span className="text-green-600 font-bold text-xs sm:text-sm">27</span>
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Payment Methods</h3>
+                  <div className="space-y-4 sm:space-y-6">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+                      <div className="flex items-center space-x-2">
+                        <CreditCard className="h-4 w-4 text-gray-500" />
+                        <p className="text-gray-700 text-sm sm:text-base">Visa ending in 4242</p>
+                      </div>
+                      <button className="text-[#005C3C] font-medium hover:underline text-sm sm:text-base">
+                        Edit
+                      </button>
                     </div>
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 border border-green-300 rounded-full flex items-center justify-center">
-                      <span className="text-green-600 font-bold text-xs sm:text-sm">28</span>
-                    </div>
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 border border-green-300 rounded-full flex items-center justify-center">
-                      <span className="text-green-600 font-bold text-xs sm:text-sm">29</span>
-                    </div>
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 border border-green-300 rounded-full flex items-center justify-center">
-                      <span className="text-green-600 font-bold text-xs sm:text-sm">30</span>
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-4 h-4 bg-blue-600 rounded"></div>
+                        <p className="text-gray-700 text-sm sm:text-base">PayPal Connected</p>
+                      </div>
+                      <button className="text-[#005C3C] font-medium hover:underline text-sm sm:text-base">
+                        Manage
+                      </button>
                     </div>
                   </div>
-                  <button 
-                    onClick={handleViewCalendar}
-                    className="text-gray-500 font-medium hover:underline text-center w-full text-sm sm:text-base"
-                  >
-                    View Calendar
+                </div>
+              </div>
+
+              {/* Right Sidebar */}
+              <div className="w-full lg:w-80 space-y-4 sm:space-y-6">
+                {/* Upcoming Services Widget */}
+                <div className="bg-white rounded-lg p-4 sm:p-6 border border-gray-200">
+                  <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">Upcoming Services</h3>
+                  <div className="space-y-3 sm:space-y-4">
+                    {upcomingServices.map((service, index) => (
+                      <div key={index} className="border-b border-gray-100 pb-3 sm:pb-4 last:border-b-0">
+                        <p className="text-gray-700 text-sm font-medium mb-1">{service.title}</p>
+                        <p className="text-gray-500 text-xs mb-1">with {service.provider}</p>
+                        <p className="text-gray-500 text-xs">{service.date} at {service.time}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <button className="text-[#005C3C] font-medium hover:underline text-sm sm:text-base mt-3">
+                    View all
                   </button>
                 </div>
 
-                {/* Previous Jobs Widget */}
+                {/* Recent Services Widget */}
                 <div className="bg-white rounded-lg p-4 sm:p-6 border border-gray-200">
-                  <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">Previous Jobs</h3>
+                  <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">Recent Services</h3>
                   <div className="space-y-2 sm:space-y-3 mb-4">
-                    {previousJobs.map((job, index) => (
+                    {recentServices.map((service, index) => (
                       <div key={index} className="flex items-center justify-between">
                         <div className="flex items-center space-x-2 sm:space-x-3">
                           <div className="w-6 h-6 sm:w-8 sm:h-8 bg-[#005C3C] rounded flex items-center justify-center">
-                            <job.icon className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
+                            <service.icon className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
                           </div>
-                          <span className="text-gray-700 text-sm sm:text-base">{job.title}</span>
+                          <span className="text-gray-700 text-sm sm:text-base">{service.title}</span>
                         </div>
-                        <span className="text-gray-500 text-xs sm:text-sm">{job.date}</span>
+                        <div className="text-right">
+                          <span className="text-gray-500 text-xs sm:text-sm">{service.date}</span>
+                          <div className="text-green-600 text-xs font-medium">{service.status}</div>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -287,25 +327,53 @@ export default function ServiceProviderProfile() {
                   </button>
                 </div>
 
-                {/* No Active Jobs Widget */}
+                {/* Favorite Providers Widget */}
                 <div className="bg-white rounded-lg p-4 sm:p-6 border border-gray-200">
-                  <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">No Active Jobs</h3>
-                  <button className="text-[#005C3C] font-medium hover:underline text-sm sm:text-base">
-                    Search a job
-                  </button>
-                </div>
-
-                {/* Last Jobs Widget */}
-                <div className="bg-white rounded-lg p-4 sm:p-6 border border-gray-200">
-                  <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">Last Jobs</h3>
-                  <div className="space-y-2 sm:space-y-3">
-                    {lastJobs.map((job, index) => (
-                      <div key={index} className="border-b border-gray-100 pb-2 sm:pb-3 last:border-b-0">
-                        <p className="text-gray-700 text-sm mb-1">{job.title}</p>
-                        <p className="text-gray-500 text-xs">{job.category}</p>
+                  <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">Favorite Providers</h3>
+                  <div className="space-y-3 sm:space-y-4">
+                    {favoriteProviders.map((provider, index) => (
+                      <div key={index} className="flex items-center space-x-3">
+                        <img
+                          src={provider.image}
+                          alt={provider.name}
+                          className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover"
+                        />
+                        <div className="flex-1">
+                          <p className="text-gray-700 text-sm font-medium">{provider.name}</p>
+                          <p className="text-gray-500 text-xs">{provider.service}</p>
+                        </div>
+                        <div className="flex items-center space-x-1">
+                          <Heart className="h-3 w-3 text-red-500 fill-current" />
+                          <span className="text-gray-600 text-xs">{provider.rating}</span>
+                        </div>
                       </div>
                     ))}
                   </div>
+                  <button className="text-[#005C3C] font-medium hover:underline text-sm sm:text-base mt-3">
+                    View all
+                  </button>
+                </div>
+
+                {/* Account Status Widget */}
+                <div className="bg-white rounded-lg p-4 sm:p-6 border border-gray-200">
+                  <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">Account Status</h3>
+                  <div className="space-y-2 sm:space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-600 text-sm">Status</span>
+                      <span className="text-green-600 text-sm font-medium">Active</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-600 text-sm">Member Since</span>
+                      <span className="text-gray-700 text-sm">April 2024</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-600 text-sm">Plan</span>
+                      <span className="text-gray-700 text-sm">Premium</span>
+                    </div>
+                  </div>
+                  <button className="text-[#005C3C] font-medium hover:underline text-sm sm:text-base mt-3">
+                    Manage Subscription
+                  </button>
                 </div>
               </div>
             </div>
@@ -331,7 +399,7 @@ export default function ServiceProviderProfile() {
 
             <div className="text-center">
               <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Share your profile</h2>
-              <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">share it with your friends.</p>
+              <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">Share it with your friends.</p>
 
               <div className="flex justify-center space-x-4 sm:space-x-6 mb-4 sm:mb-6">
                 <button
@@ -386,7 +454,7 @@ export default function ServiceProviderProfile() {
               <div className="flex items-center space-x-2">
                 <input
                   type="text"
-                  value="https://welpco.com/profile/jennifer-white"
+                  value="https://welpco.com/profile/star-shah"
                   readOnly
                   className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm bg-gray-50"
                 />
@@ -396,132 +464,6 @@ export default function ServiceProviderProfile() {
                 >
                   <Copy className="h-4 w-4 text-gray-600" />
                 </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Calendar Modal */}
-      {showCalendarModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div 
-            className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"
-            onClick={handleCloseCalendarModal}
-          ></div>
-          
-          <div className="relative bg-white rounded-lg max-w-6xl w-full mx-4 h-[600px] flex overflow-hidden">
-            <button
-              onClick={handleCloseCalendarModal}
-              className="absolute top-4 right-4 text-white hover:text-gray-300 z-10"
-            >
-              <X className="h-5 w-5" />
-            </button>
-
-            <div className="w-1/3 bg-green-400 p-4 sm:p-8 text-white">
-              <div className="mb-6 sm:mb-8">
-                <div className="text-4xl sm:text-6xl font-bold mb-2">02</div>
-                <div className="text-lg sm:text-xl font-medium">JULY</div>
-                <div className="text-base sm:text-lg">2021</div>
-              </div>
-
-              <div className="mb-6 sm:mb-8">
-                <h3 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">Dates Available</h3>
-                <div className="space-y-2 sm:space-y-3">
-                  <div className="bg-green-300 rounded-lg p-2 sm:p-3 text-green-800 font-medium text-sm sm:text-base">
-                    26,27,28 JULY
-                  </div>
-                  <div className="bg-green-300 rounded-lg p-2 sm:p-3 text-green-800 font-medium text-sm sm:text-base">
-                    1,2,3,4 AUGUST
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <h3 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">SCHEDULE</h3>
-                <div className="space-y-2 sm:space-y-3">
-                  <div className="bg-green-300 rounded-lg p-2 sm:p-3 text-green-800 font-medium text-sm sm:text-base">
-                    10:00 - 01:10 Sitting
-                  </div>
-                  <div className="bg-green-300 rounded-lg p-2 sm:p-3 text-green-800 font-medium text-sm sm:text-base">
-                    02:00 - 05:00 Sitting
-                  </div>
-                  <div className="bg-green-300 rounded-lg p-2 sm:p-3 text-green-800 font-medium text-sm sm:text-base">
-                    07:00 - 08:30 Pet Care
-                  </div>
-                  <div className="bg-green-300 rounded-lg p-2 sm:p-3 text-green-800 font-medium text-sm sm:text-base">
-                    10:00 - 12:30 Pet Care
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="w-2/3 bg-[#00492F] p-4 sm:p-8 text-white">
-              <div className="mb-4 sm:mb-6">
-                <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider mb-3 sm:mb-4">CALENDAR</h2>
-                
-                <div className="flex space-x-4 sm:space-x-6 mb-4 sm:mb-6">
-                  <span className="text-gray-300 text-sm sm:text-base">June 2021</span>
-                  <span className="font-bold text-sm sm:text-base">July 2021</span>
-                  <span className="text-gray-300 text-sm sm:text-base">August 2021</span>
-                </div>
-
-                <div className="grid grid-cols-7 gap-1 sm:gap-2 mb-3 sm:mb-4">
-                  <div className="text-center text-xs sm:text-sm font-medium">SUN</div>
-                  <div className="text-center text-xs sm:text-sm font-medium">MON</div>
-                  <div className="text-center text-xs sm:text-sm font-medium">TUS</div>
-                  <div className="text-center text-xs sm:text-sm font-medium">WED</div>
-                  <div className="text-center text-xs sm:text-sm font-medium">THUR</div>
-                  <div className="text-center text-xs sm:text-sm font-medium">FRI</div>
-                  <div className="text-center text-xs sm:text-sm font-medium">SAT</div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-7 gap-1 sm:gap-2">
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm text-gray-400">27</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm text-gray-400">28</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm text-gray-400">29</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm text-gray-400">30</div>
-
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">1</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">2</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">3</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm border border-white rounded-full">4</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">5</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">6</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">7</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">8</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">9</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">10</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm border border-white rounded-full">11</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">12</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm border border-white rounded-full">13</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">14</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">15</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">16</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">17</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm border border-white rounded-full">18</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">19</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">20</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm border border-white rounded-full">21</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">22</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">23</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">24</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm border border-white rounded-full">25</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">26</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">27</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">28</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">29</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">30</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">31</div>
-
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">1</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm bg-green-400 rounded-full">2</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">3</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">4</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">5</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">6</div>
-                <div className="p-1 sm:p-2 text-center text-xs sm:text-sm">7</div>
               </div>
             </div>
           </div>

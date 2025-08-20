@@ -21,6 +21,7 @@ import {
 export default function DashboardPage() {
   const [user, setUser] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -39,6 +40,10 @@ export default function DashboardPage() {
   const handleLogout = () => {
     localStorage.removeItem("welpco_user")
     router.push("/login")
+  }
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen)
   }
 
   if (isLoading) {
@@ -91,38 +96,48 @@ export default function DashboardPage() {
 
     return (
     <div className="min-h-screen bg-gray-50 flex">
+      {/* Mobile Sidebar Overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <Sidebar currentPath="/dashboard" user={user} onLogout={handleLogout} />
+      <div className={`fixed lg:static inset-y-0 left-0 z-50 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 transition-transform duration-300 ease-in-out`}>
+        <Sidebar currentPath="/dashboard" user={user} onLogout={handleLogout} onClose={() => setSidebarOpen(false)} />
+      </div>
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Header */}
-        <Header user={user} />
+        <Header user={user} onMenuClick={toggleSidebar} />
 
         {/* Main Content Area */}
-        <main className="flex-1 p-8">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8">
         
         {/* Demo Helper */}
         <DemoHelper />
                      {/* Greeting */}
-           <div className="mb-8">
-             <h1 className="text-3xl font-bold text-gray-900 mb-2">Hey {user?.name || "User"},</h1>
-             <h1 className="text-3xl font-bold text-gray-900">What kind of service do you need?</h1>
+           <div className="mb-6 sm:mb-8">
+             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Hey {user?.name || "User"},</h1>
+             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">What kind of service do you need?</h1>
            </div>
 
                      {/* Service Categories Grid */}
-                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
              {serviceCategories.map((service, index) => (
                <Link
                  key={index}
                  href="/dashboard/care-request"
-                 className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow cursor-pointer block"
+                 className="bg-white rounded-xl p-4 sm:p-6 border border-gray-200 hover:shadow-lg transition-shadow cursor-pointer block"
                >
-                 <div className="flex items-center space-x-4 mb-4">
-                   <div className="w-12 h-12 bg-[#005C3C] rounded-lg flex items-center justify-center">
-                     <service.icon className="w-6 h-6 text-white" />
+                 <div className="flex items-center space-x-3 sm:space-x-4 mb-3 sm:mb-4">
+                   <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#005C3C] rounded-lg flex items-center justify-center">
+                     <service.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                    </div>
-                   <h3 className="text-xl font-bold text-gray-900">{service.title}</h3>
+                   <h3 className="text-lg sm:text-xl font-bold text-gray-900">{service.title}</h3>
                  </div>
                  <p className="text-gray-600 text-sm leading-relaxed">{service.description}</p>
                </Link>

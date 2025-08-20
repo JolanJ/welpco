@@ -21,6 +21,7 @@ import {
 
 export default function CareRequestPage() {
   const router = useRouter()
+  const [sidebarOpen, setSidebarOpen] = useState(false)
   const [formData, setFormData] = useState({
     location: "",
     ageRange: "",
@@ -72,27 +73,41 @@ export default function CareRequestPage() {
     router.push("/caregiver-results")
   }
 
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen)
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 flex">
+      {/* Mobile Sidebar Overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <Sidebar currentPath="/care-request" />
+      <div className={`fixed lg:static inset-y-0 left-0 z-50 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 transition-transform duration-300 ease-in-out`}>
+        <Sidebar currentPath="/care-request" onClose={() => setSidebarOpen(false)} />
+      </div>
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Header */}
-        <Header />
+        <Header onMenuClick={toggleSidebar} />
 
         {/* Main Content Area */}
-        <main className="flex-1 p-8">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8">
           <div className="max-w-2xl mx-auto">
-            <h1 className="text-3xl font-bold text-gray-900 mb-8">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8">
               Enter your details to connect with caregivers!
             </h1>
 
-            <form onSubmit={handleSubmit} className="space-y-8">
+            <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
               {/* Location */}
               <div>
-                <Label className="text-lg font-semibold text-gray-900 mb-4 block">
+                <Label className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4 block">
                   Where do you need the child care?
                 </Label>
                 <div className="relative">
@@ -117,7 +132,7 @@ export default function CareRequestPage() {
 
               {/* Who needs Care */}
               <div>
-                <Label className="text-lg font-semibold text-gray-900 mb-4 block">
+                <Label className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4 block">
                   Who needs Care?
                 </Label>
                 <select
@@ -144,13 +159,13 @@ export default function CareRequestPage() {
 
               {/* When do you need care */}
               <div>
-                <Label className="text-lg font-semibold text-gray-900 mb-4 block">
+                <Label className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4 block">
                   When do you need care?
                 </Label>
                 <RadioGroup
                   value={formData.scheduleType}
                   onValueChange={(value) => setFormData(prev => ({ ...prev, scheduleType: value }))}
-                  className="flex space-x-6 mb-6"
+                  className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-6 mb-6"
                 >
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="recurring" id="recurring" />
@@ -162,11 +177,11 @@ export default function CareRequestPage() {
                   </div>
                 </RadioGroup>
 
-                <div className="grid grid-cols-2 gap-4 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                   <div>
-                                         <Label className="text-sm font-medium text-gray-700 mb-2 block" style={{ fontWeight: 500 }}>
-                       Estimated Start Date
-                     </Label>
+                    <Label className="text-sm font-medium text-gray-700 mb-2 block" style={{ fontWeight: 500 }}>
+                      Estimated Start Date
+                    </Label>
                     <div className="relative">
                       <Input
                         type="date"
@@ -178,9 +193,9 @@ export default function CareRequestPage() {
                     </div>
                   </div>
                   <div>
-                                         <Label className="text-sm font-medium text-gray-700 mb-2 block" style={{ fontWeight: 500 }}>
-                       Estimated End Date
-                     </Label>
+                    <Label className="text-sm font-medium text-gray-700 mb-2 block" style={{ fontWeight: 500 }}>
+                      Estimated End Date
+                    </Label>
                     <div className="relative">
                       <Input
                         type="date"
@@ -195,9 +210,9 @@ export default function CareRequestPage() {
                 </div>
 
                 <div>
-                                     <Label className="text-sm font-medium text-gray-700 mb-2 block" style={{ fontWeight: 500 }}>
-                     Time
-                   </Label>
+                  <Label className="text-sm font-medium text-gray-700 mb-2 block" style={{ fontWeight: 500 }}>
+                    Time
+                  </Label>
                   <div className="text-center mb-4">
                     <div className="text-sm text-gray-900">
                       {formData.timeRange[0]}:00 AM - {formData.timeRange[1]}:00 PM
@@ -217,17 +232,17 @@ export default function CareRequestPage() {
 
               {/* What do you need help with */}
               <div>
-                <Label className="text-lg font-semibold text-gray-900 mb-2 block">
+                <Label className="text-base sm:text-lg font-semibold text-gray-900 mb-2 block">
                   What do you need help with? (optional)
                 </Label>
                 <p className="text-sm text-gray-600 mb-4">Select all that apply</p>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-2 sm:gap-3">
                   {helpTypes.map((type) => (
                     <button
                       key={type}
                       type="button"
                       onClick={() => handleHelpTypeToggle(type)}
-                      className={`px-4 py-2 rounded-full text-sm border transition-colors ${
+                      className={`px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm border transition-colors ${
                         formData.helpTypes.includes(type)
                           ? "bg-[#005C3C] text-white border-[#005C3C]"
                           : "bg-white text-gray-700 border-gray-300 hover:border-[#005C3C]"
@@ -241,17 +256,17 @@ export default function CareRequestPage() {
 
               {/* Caregiver qualities */}
               <div>
-                <Label className="text-lg font-semibold text-gray-900 mb-2 block">
+                <Label className="text-base sm:text-lg font-semibold text-gray-900 mb-2 block">
                   Your ideal caregiver qualities? (optional)
                 </Label>
                 <p className="text-sm text-gray-600 mb-4">Select all that apply</p>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-2 sm:gap-3">
                   {caregiverQualities.map((quality) => (
                     <button
                       key={quality}
                       type="button"
                       onClick={() => handleQualityToggle(quality)}
-                      className={`px-4 py-2 rounded-full text-sm border transition-colors ${
+                      className={`px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm border transition-colors ${
                         formData.caregiverQualities.includes(quality)
                           ? "bg-[#005C3C] text-white border-[#005C3C]"
                           : "bg-white text-gray-700 border-gray-300 hover:border-[#005C3C]"
@@ -265,35 +280,35 @@ export default function CareRequestPage() {
 
               {/* Pricing */}
               <div>
-                <Label className="text-lg font-semibold text-gray-900 mb-2 block">
+                <Label className="text-base sm:text-lg font-semibold text-gray-900 mb-2 block">
                   What would you like to pay?
                 </Label>
                 <p className="text-sm text-gray-600 mb-4">
                   The average caregiver in your area is $17 - $25.
                 </p>
-                                 <div className="space-y-4">
-                   <div className="text-center mb-4">
-                     <div className="text-sm text-gray-900">
-                       ${formData.priceRange[0]} - ${formData.priceRange[1]}
-                     </div>
-                   </div>
-                   <div className="relative">
-                     <TimeRangeSlider
-                       value={formData.priceRange}
-                       onValueChange={(value) => setFormData(prev => ({ ...prev, priceRange: value }))}
-                       min={10}
-                       max={50}
-                       step={1}
-                     />
-                   </div>
-                   <p className="text-sm text-gray-500 text-center">Per hour</p>
-                 </div>
+                <div className="space-y-4">
+                  <div className="text-center mb-4">
+                    <div className="text-sm text-gray-900">
+                      ${formData.priceRange[0]} - ${formData.priceRange[1]}
+                    </div>
+                  </div>
+                  <div className="relative">
+                    <TimeRangeSlider
+                      value={formData.priceRange}
+                      onValueChange={(value) => setFormData(prev => ({ ...prev, priceRange: value }))}
+                      min={10}
+                      max={50}
+                      step={1}
+                    />
+                  </div>
+                  <p className="text-sm text-gray-500 text-center">Per hour</p>
+                </div>
               </div>
 
               {/* Submit Button */}
               <Button
                 type="submit"
-                className="w-full bg-[#005C3C] text-white py-4 text-lg font-semibold hover:bg-[#00492F] transition-colors"
+                className="w-full bg-[#005C3C] text-white py-3 sm:py-4 text-base sm:text-lg font-semibold hover:bg-[#00492F] transition-colors"
               >
                 Search for Caregivers
               </Button>

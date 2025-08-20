@@ -19,6 +19,7 @@ interface Caregiver {
 }
 
 export default function CaregiverResultsPage() {
+  const [sidebarOpen, setSidebarOpen] = useState(false)
   const [caregivers, setCaregivers] = useState<Caregiver[]>([
     {
       id: 1,
@@ -86,6 +87,10 @@ export default function CaregiverResultsPage() {
     )
   }
 
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen)
+  }
+
   const renderStars = (rating: number) => {
     const stars = []
     const fullStars = Math.floor(rating)
@@ -109,33 +114,43 @@ export default function CaregiverResultsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
+      {/* Mobile Sidebar Overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <Sidebar currentPath="/caregiver-results" />
+      <div className={`fixed lg:static inset-y-0 left-0 z-50 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 transition-transform duration-300 ease-in-out`}>
+        <Sidebar currentPath="/caregiver-results" onClose={() => setSidebarOpen(false)} />
+      </div>
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Header */}
-        <Header />
+        <Header onMenuClick={toggleSidebar} />
 
         {/* Main Content Area */}
-        <main className="flex-1 p-8">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8">
           <div className="max-w-7xl mx-auto">
             {/* Greeting */}
-            <div className="mb-8">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Hey Star Shah,</h1>
-              <h1 className="text-3xl font-bold text-gray-900">We have some results for you!</h1>
+            <div className="mb-6 sm:mb-8">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Hey Star Shah,</h1>
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">We have some results for you!</h1>
             </div>
 
             {/* Caregiver Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {caregivers.map((caregiver) => (
                 <div
                   key={caregiver.id}
-                                     className={`bg-white rounded-xl border transition-all cursor-pointer ${
-                     caregiver.selected 
-                       ? 'border-[#005C3C] shadow-lg' 
-                       : 'border-gray-200 hover:border-gray-300 hover:shadow-md'
-                   }`}
+                  className={`bg-white rounded-xl border transition-all cursor-pointer ${
+                    caregiver.selected 
+                      ? 'border-[#005C3C] shadow-lg' 
+                      : 'border-gray-200 hover:border-gray-300 hover:shadow-md'
+                  }`}
                   onClick={() => handleCardSelect(caregiver.id)}
                 >
                   {/* Profile Image */}
@@ -143,17 +158,17 @@ export default function CaregiverResultsPage() {
                     <img
                       src={caregiver.image}
                       alt={caregiver.name}
-                      className="w-full h-48 object-cover rounded-t-xl"
+                      className="w-full h-40 sm:h-48 object-cover rounded-t-xl"
                     />
                   </div>
 
                   {/* Profile Info */}
-                  <div className="p-4">
+                  <div className="p-3 sm:p-4">
                     {/* Name and Verification */}
                     <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-lg font-bold text-gray-900">{caregiver.name}</h3>
+                      <h3 className="text-base sm:text-lg font-bold text-gray-900">{caregiver.name}</h3>
                       {caregiver.verified && (
-                        <Shield className="w-5 h-5 text-green-500" />
+                        <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" />
                       )}
                     </div>
 
@@ -169,7 +184,7 @@ export default function CaregiverResultsPage() {
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="flex space-x-3">
+                    <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
                       <Button
                         variant="outline"
                         className="flex-1 border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50"

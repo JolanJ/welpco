@@ -77,6 +77,7 @@ export default function ReviewsPage() {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     const userData = localStorage.getItem('user');
@@ -94,6 +95,10 @@ export default function ReviewsPage() {
     return comment.substring(0, maxLength) + '...';
   };
 
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -108,37 +113,48 @@ export default function ReviewsPage() {
 
   return (
     <div className="flex h-screen bg-gray-50">
-      <ServiceProviderSidebar />
+      {/* Mobile Sidebar Overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
       
-      <div className="flex-1 flex flex-col">
-        <ServiceProviderHeader />
+      {/* Sidebar */}
+      <div className={`fixed lg:static inset-y-0 left-0 z-50 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 transition-transform duration-300 ease-in-out`}>
+        <ServiceProviderSidebar onClose={() => setSidebarOpen(false)} />
+      </div>
+      
+      <div className="flex-1 flex flex-col min-w-0">
+        <ServiceProviderHeader onMenuClick={toggleSidebar} />
         
-        <main className="flex-1 p-8">
-          <div className="max-w-7xl">
-            <h1 className="text-3xl font-bold text-gray-900 mb-8 ml-8">Reviews</h1>
+        <main className="flex-1 p-4 sm:p-6 lg:p-8">
+          <div className="max-w-7xl mx-auto">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8 ml-2 sm:ml-4 lg:ml-8">Reviews</h1>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ml-8 mr-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 ml-2 sm:ml-4 lg:ml-8 mr-2 sm:mr-4 lg:mr-8">
               {mockReviews.map((review) => (
-                <div key={review.id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-10 hover:shadow-md transition-shadow">
-                  <div className="flex items-center mb-8">
+                <div key={review.id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sm:p-8 lg:p-10 hover:shadow-md transition-shadow">
+                  <div className="flex items-center mb-6 sm:mb-8">
                     <img
                       src={review.profilePicture}
                       alt={review.reviewerName}
-                      className="w-12 h-12 rounded-full mr-4 bg-gray-200"
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full mr-3 sm:mr-4 bg-gray-200"
                     />
                     <div className="flex items-center">
-                      <Star className="w-5 h-5 text-blue-500 fill-current mr-1" />
-                      <span className="text-lg font-semibold text-gray-900">
+                      <Star className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 fill-current mr-1" />
+                      <span className="text-base sm:text-lg font-semibold text-gray-900">
                         {review.rating.toFixed(2)}
                       </span>
                     </div>
                   </div>
                   
-                  <h3 className="font-bold text-gray-900 mb-6">
+                  <h3 className="font-bold text-gray-900 mb-4 sm:mb-6 text-sm sm:text-base">
                     {review.reviewerName}
                   </h3>
                   
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
                     {truncateComment(review.comment)}
                   </p>
                 </div>
