@@ -13,7 +13,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="h-screen bg-gray-50 flex">
+    <div className="flex h-screen bg-gray-50">
       {/* Mobile Sidebar Overlay */}
       {sidebarOpen && (
         <div 
@@ -27,19 +27,18 @@ export default function SettingsPage() {
         <Sidebar currentPath="/settings" onClose={() => setSidebarOpen(false)} />
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col">
-        {/* Header */}
+      <div className="flex-1 flex flex-col min-w-0">
         <Header onMenuClick={toggleSidebar} />
-
-        {/* Main Content Area */}
+        
         <main className="flex-1 p-4 sm:p-6 lg:p-8">
           <div className="max-w-4xl mx-auto">
             {/* Page Title */}
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8">Settings</h1>
+            <div className="mb-4 sm:mb-6 ml-2 sm:ml-4 lg:ml-8">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Settings</h1>
+            </div>
 
             {/* General Info Section */}
-            <div className="bg-white rounded-xl border border-gray-200 p-4 sm:p-6 mb-4 sm:mb-6">
+            <div className="bg-white rounded-lg p-4 sm:p-6 border border-gray-200 mb-4 sm:mb-6 ml-2 sm:ml-4 lg:ml-8 mr-2 sm:mr-4 lg:mr-8">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6">
                 <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-0">General Info</h2>
                 <Link href="#" className="text-[#005C3C] text-sm hover:underline">
@@ -77,7 +76,7 @@ export default function SettingsPage() {
             </div>
 
             {/* Membership Info Section */}
-            <div className="bg-white rounded-xl border border-gray-200 p-4 sm:p-6 mb-4 sm:mb-6">
+            <div className="bg-white rounded-lg p-4 sm:p-6 border border-gray-200 mb-4 sm:mb-6 ml-2 sm:ml-4 lg:ml-8 mr-2 sm:mr-4 lg:mr-8">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6">
                 <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-0">Membership Info</h2>
                 <Link href="#" className="text-[#005C3C] text-sm hover:underline">
@@ -107,7 +106,7 @@ export default function SettingsPage() {
             </div>
 
             {/* Credit Card Info Section */}
-            <div className="bg-white rounded-xl border border-gray-200 p-4 sm:p-6">
+            <div className="bg-white rounded-lg p-4 sm:p-6 border border-gray-200 ml-2 sm:ml-4 lg:ml-8 mr-2 sm:mr-4 lg:mr-8">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6">
                 <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-0">Credit Card Info</h2>
                 <Link href="#" className="text-[#005C3C] text-sm hover:underline">

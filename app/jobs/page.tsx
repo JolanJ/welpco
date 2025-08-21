@@ -11,7 +11,7 @@ interface Job {
   name: string
   age: string
   description: string
-  status: 'active' | 'paused' | 'pending'
+  status: 'active' | 'paused' | 'pending' | 'completed'
   image: string
 }
 
@@ -105,7 +105,7 @@ export default function JobsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="flex h-screen bg-gray-50">
       {/* Mobile Sidebar Overlay */}
       {sidebarOpen && (
         <div 
@@ -119,19 +119,18 @@ export default function JobsPage() {
         <Sidebar currentPath="/jobs" onClose={() => setSidebarOpen(false)} />
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col">
-        {/* Header */}
+      <div className="flex-1 flex flex-col min-w-0">
         <Header onMenuClick={toggleSidebar} />
-
-        {/* Main Content Area */}
+        
         <main className="flex-1 p-4 sm:p-6 lg:p-8">
           <div className="max-w-7xl mx-auto">
             {/* Page Title */}
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8">Jobs</h1>
+            <div className="mb-4 sm:mb-6 ml-2 sm:ml-4 lg:ml-8">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Jobs</h1>
+            </div>
 
             {/* Tabs */}
-            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mb-6 sm:mb-8">
+            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mb-4 sm:mb-6 ml-2 sm:ml-4 lg:ml-8 mr-2 sm:mr-4 lg:mr-8">
               <Button
                 onClick={() => setActiveTab('current')}
                 className={`px-4 sm:px-6 py-2 rounded-full transition-colors text-sm sm:text-base ${
@@ -155,11 +154,11 @@ export default function JobsPage() {
             </div>
 
             {/* Job Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 ml-2 sm:ml-4 lg:ml-8 mr-2 sm:mr-4 lg:mr-8">
               {(activeTab === 'current' ? currentJobs : previousJobs).map((job) => (
                 <div
                   key={job.id}
-                  className="bg-white rounded-xl border border-gray-200 p-4 sm:p-6 hover:shadow-md transition-shadow"
+                  className="bg-white rounded-lg p-4 sm:p-6 border border-gray-200 hover:shadow-md transition-shadow"
                 >
                   {/* Header */}
                   <div className="flex items-start justify-between mb-4">
@@ -185,20 +184,20 @@ export default function JobsPage() {
                   </div>
 
                   {/* Description */}
-                  <p className="text-gray-700 text-sm leading-relaxed">
+                  <p className="text-gray-700 text-sm leading-relaxed mb-4 sm:mb-6">
                     {job.description}
                   </p>
 
                   {/* Action Buttons */}
-                  <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 mt-4 sm:mt-6">
+                  <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
                     <Button
                       variant="outline"
-                      className="flex-1 border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50"
+                      className="flex-1 border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50 text-sm"
                     >
                       View Details
                     </Button>
                     <Button
-                      className="flex-1 bg-[#005C3C] text-white hover:bg-[#00492F]"
+                      className="flex-1 bg-[#005C3C] text-white hover:bg-[#00492F] text-sm"
                     >
                       {activeTab === 'current' ? 'Manage' : 'View'}
                     </Button>
@@ -209,8 +208,8 @@ export default function JobsPage() {
 
             {/* Empty State */}
             {(activeTab === 'current' ? currentJobs : previousJobs).length === 0 && (
-              <div className="text-center py-12">
-                <p className="text-gray-500 text-base sm:text-lg">
+              <div className="text-center py-8 sm:py-12 ml-2 sm:ml-4 lg:ml-8 mr-2 sm:mr-4 lg:mr-8">
+                <p className="text-gray-500 text-sm sm:text-base">
                   No {activeTab === 'current' ? 'current' : 'previous'} jobs found.
                 </p>
               </div>
