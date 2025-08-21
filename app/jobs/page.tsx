@@ -122,15 +122,15 @@ export default function JobsPage() {
       <div className="flex-1 flex flex-col min-w-0">
         <Header onMenuClick={toggleSidebar} />
         
-        <main className="flex-1 p-4 sm:p-6 lg:p-8">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
           <div className="max-w-7xl mx-auto">
             {/* Page Title */}
-            <div className="mb-4 sm:mb-6 ml-2 sm:ml-4 lg:ml-8">
+            <div className="mb-6">
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Jobs</h1>
             </div>
 
             {/* Tabs */}
-            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mb-4 sm:mb-6 ml-2 sm:ml-4 lg:ml-8 mr-2 sm:mr-4 lg:mr-8">
+            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mb-6">
               <Button
                 onClick={() => setActiveTab('current')}
                 className={`px-4 sm:px-6 py-2 rounded-full transition-colors text-sm sm:text-base ${
@@ -154,7 +154,7 @@ export default function JobsPage() {
             </div>
 
             {/* Job Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 ml-2 sm:ml-4 lg:ml-8 mr-2 sm:mr-4 lg:mr-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {(activeTab === 'current' ? currentJobs : previousJobs).map((job) => (
                 <div
                   key={job.id}
@@ -208,7 +208,7 @@ export default function JobsPage() {
 
             {/* Empty State */}
             {(activeTab === 'current' ? currentJobs : previousJobs).length === 0 && (
-              <div className="text-center py-8 sm:py-12 ml-2 sm:ml-4 lg:ml-8 mr-2 sm:mr-4 lg:mr-8">
+              <div className="text-center py-8 sm:py-12">
                 <p className="text-gray-500 text-sm sm:text-base">
                   No {activeTab === 'current' ? 'current' : 'previous'} jobs found.
                 </p>
@@ -219,4 +219,4 @@ export default function JobsPage() {
       </div>
     </div>
   )
-} 
+}

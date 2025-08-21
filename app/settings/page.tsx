@@ -30,15 +30,15 @@ export default function SettingsPage() {
       <div className="flex-1 flex flex-col min-w-0">
         <Header onMenuClick={toggleSidebar} />
         
-        <main className="flex-1 p-4 sm:p-6 lg:p-8">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
           <div className="max-w-4xl mx-auto">
             {/* Page Title */}
-            <div className="mb-4 sm:mb-6 ml-2 sm:ml-4 lg:ml-8">
+            <div className="mb-6">
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Settings</h1>
             </div>
 
             {/* General Info Section */}
-            <div className="bg-white rounded-lg p-4 sm:p-6 border border-gray-200 mb-4 sm:mb-6 ml-2 sm:ml-4 lg:ml-8 mr-2 sm:mr-4 lg:mr-8">
+            <div className="bg-white rounded-lg p-4 sm:p-6 border border-gray-200 mb-6">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6">
                 <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-0">General Info</h2>
                 <Link href="#" className="text-[#005C3C] text-sm hover:underline">
@@ -76,7 +76,7 @@ export default function SettingsPage() {
             </div>
 
             {/* Membership Info Section */}
-            <div className="bg-white rounded-lg p-4 sm:p-6 border border-gray-200 mb-4 sm:mb-6 ml-2 sm:ml-4 lg:ml-8 mr-2 sm:mr-4 lg:mr-8">
+            <div className="bg-white rounded-lg p-4 sm:p-6 border border-gray-200 mb-6">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6">
                 <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-0">Membership Info</h2>
                 <Link href="#" className="text-[#005C3C] text-sm hover:underline">
@@ -106,7 +106,7 @@ export default function SettingsPage() {
             </div>
 
             {/* Credit Card Info Section */}
-            <div className="bg-white rounded-lg p-4 sm:p-6 border border-gray-200 ml-2 sm:ml-4 lg:ml-8 mr-2 sm:mr-4 lg:mr-8">
+            <div className="bg-white rounded-lg p-4 sm:p-6 border border-gray-200">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6">
                 <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-0">Credit Card Info</h2>
                 <Link href="#" className="text-[#005C3C] text-sm hover:underline">
@@ -144,4 +144,4 @@ export default function SettingsPage() {
       </div>
     </div>
   )
-} 
+}
