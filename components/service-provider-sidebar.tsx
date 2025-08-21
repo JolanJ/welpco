@@ -41,7 +41,7 @@ export default function ServiceProviderSidebar({ currentPath = "/service-provide
   }
 
   return (
-    <div className="w-64 h-screen bg-white text-gray-900 flex flex-col border-r border-gray-200">
+    <div className="w-64 h-full bg-white text-gray-900 flex flex-col border-r border-gray-200">
       {/* Logo */}
       <div className="p-4 sm:p-6 border-b border-gray-200 flex items-center justify-between">
         <div className="text-xl sm:text-2xl font-bold text-[#005C3C]">WELPCO®</div>
