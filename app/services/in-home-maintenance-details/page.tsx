@@ -9,6 +9,8 @@ export default function InHomeMaintenanceDetailsPage() {
   const [inHomeMaintenanceType, setInHomeMaintenanceType] = useState("")
   const [date, setDate] = useState("")
   const [time, setTime] = useState("")
+  const [startTime, setStartTime] = useState("")
+  const [endTime, setEndTime] = useState("")
   const [costRange, setCostRange] = useState("")
   const [notes, setNotes] = useState("")
 
@@ -50,7 +52,7 @@ export default function InHomeMaintenanceDetailsPage() {
   }
 
   const isFormValid = () => {
-    return date && time && costRange
+    return date && startTime && endTime && costRange
   }
 
   const handleContinue = () => {
@@ -60,7 +62,8 @@ export default function InHomeMaintenanceDetailsPage() {
         service: service,
         inHomeMaintenanceType: inHomeMaintenanceType,
         date: date,
-        time: time,
+        startTime: startTime,
+        endTime: endTime,
         costRange: costRange,
         notes: notes
       })
@@ -135,14 +138,28 @@ export default function InHomeMaintenanceDetailsPage() {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <Clock className="w-5 h-5 text-[#005C3C]" />
-              <h2 className="text-xl font-bold text-gray-900">Estimated time</h2>
+              <h2 className="text-xl font-bold text-gray-900">Time Range</h2>
             </div>
-            <input
-              type="time"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-              className="w-full px-6 py-3 text-xl border-2 border-[#005C3C] rounded-full focus:border-[#005C3C] focus:outline-none"
-            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">From</label>
+                <input
+                  type="time"
+                  value={startTime}
+                  onChange={(e) => setStartTime(e.target.value)}
+                  className="w-full px-6 py-3 text-xl border-2 border-[#005C3C] rounded-full focus:border-[#005C3C] focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">To</label>
+                <input
+                  type="time"
+                  value={endTime}
+                  onChange={(e) => setEndTime(e.target.value)}
+                  className="w-full px-6 py-3 text-xl border-2 border-[#005C3C] rounded-full focus:border-[#005C3C] focus:outline-none"
+                />
+              </div>
+            </div>
           </div>
 
           {/* Range of cost per hour */}
@@ -181,10 +198,10 @@ export default function InHomeMaintenanceDetailsPage() {
           <button
             onClick={handleContinue}
             disabled={!isFormValid()}
-            className={`px-12 py-3 rounded-full text-xl font-semibold transition-colors ${
+            className={`px-8 py-2 rounded-lg text-lg font-semibold ${
               isFormValid()
                 ? 'bg-[#005C3C] text-white hover:bg-[#00492F]'
-                : 'bg-[#005C3C] text-white cursor-not-allowed opacity-50'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
           >
             Continue

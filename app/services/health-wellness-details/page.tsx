@@ -10,6 +10,8 @@ export default function HealthWellnessDetailsPage() {
   const [people, setPeople] = useState([{ name: "", age: "" }])
   const [date, setDate] = useState("")
   const [time, setTime] = useState("")
+  const [startTime, setStartTime] = useState("")
+  const [endTime, setEndTime] = useState("")
   const [payPerHour, setPayPerHour] = useState("")
   const [notes, setNotes] = useState("")
   const [numberOfDays, setNumberOfDays] = useState("")
@@ -79,7 +81,7 @@ export default function HealthWellnessDetailsPage() {
       case "meal-preparation":
         return baseValid && people.every(person => person.name && person.age) && numberOfDays && mealsPerDay
       case "personal-trainer":
-        return baseValid && trainingType
+        return baseValid && trainingType && startTime && endTime
       case "dietician":
       case "nutritionist":
         return baseValid && endDate
@@ -108,7 +110,8 @@ export default function HealthWellnessDetailsPage() {
           break
         case "personal-trainer":
           queryParams.append("trainingType", trainingType)
-          if (time) queryParams.append("time", time)
+          if (startTime) queryParams.append("startTime", startTime)
+          if (endTime) queryParams.append("endTime", endTime)
           break
         case "dietician":
         case "nutritionist":
@@ -310,8 +313,38 @@ export default function HealthWellnessDetailsPage() {
             </div>
           )}
 
-          {/* Time (only for personal trainer, dietician, nutritionist) */}
-          {healthWellnessType !== "meal-preparation" && (
+          {/* Time Range (only for personal trainer) */}
+          {healthWellnessType === "personal-trainer" && (
+            <div className="space-y-4">
+              <div className="flex items-center space-x-2">
+                <Clock className="w-5 h-5 text-[#005C3C]" />
+                <h2 className="text-xl font-bold text-gray-900">Time Range</h2>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">From</label>
+                  <input
+                    type="time"
+                    value={startTime}
+                    onChange={(e) => setStartTime(e.target.value)}
+                    className="w-full px-6 py-3 text-xl border-2 border-[#005C3C] rounded-full focus:border-[#005C3C] focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">To</label>
+                  <input
+                    type="time"
+                    value={endTime}
+                    onChange={(e) => setEndTime(e.target.value)}
+                    className="w-full px-6 py-3 text-xl border-2 border-[#005C3C] rounded-full focus:border-[#005C3C] focus:outline-none"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Time (only for dietician, nutritionist) */}
+          {(healthWellnessType === "dietician" || healthWellnessType === "nutritionist") && (
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
                 <Clock className="w-5 h-5 text-[#005C3C]" />
@@ -362,10 +395,10 @@ export default function HealthWellnessDetailsPage() {
           <button
             onClick={handleContinue}
             disabled={!isFormValid()}
-            className={`px-12 py-3 rounded-full text-xl font-semibold transition-colors ${
+            className={`px-8 py-2 rounded-lg text-lg font-semibold ${
               isFormValid()
                 ? 'bg-[#005C3C] text-white hover:bg-[#00492F]'
-                : 'bg-[#005C3C] text-white cursor-not-allowed opacity-50'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
           >
             Continue

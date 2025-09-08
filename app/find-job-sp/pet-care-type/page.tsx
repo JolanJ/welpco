@@ -71,26 +71,26 @@ export default function PetCareTypePage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4">
+      <div className="bg-white border-b border-gray-200 px-4 sm:px-6 py-4">
         <div className="max-w-7xl mx-auto">
           {/* Logo */}
           <div className="flex items-center justify-between mb-4">
-            <div className="text-2xl font-bold text-[#005C3C]">WELPCO®</div>
+            <div className="text-xl sm:text-2xl font-bold text-[#005C3C]">WELPCO®</div>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-4xl mx-auto px-6 py-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {/* Progress Bar */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <div className="relative">
             <div className="w-full bg-gray-200 rounded-full h-2">
               <div className="bg-[#4CA76A] h-2 rounded-full" style={{ width: '55%' }}></div>
             </div>
             {/* Progress Bubble */}
             <div className="absolute top-0 transform -translate-y-full -translate-x-1/2 -mt-2" style={{ left: '55%' }}>
-              <div className="bg-[#4CA76A] text-white text-sm px-3 py-1 rounded-lg relative">
+              <div className="bg-[#4CA76A] text-white text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-lg relative">
                 55%
                 {/* Triangle pointing down */}
                 <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#4CA76A]"></div>
@@ -100,14 +100,14 @@ export default function PetCareTypePage() {
         </div>
 
         {/* Title */}
-        <div className="text-center mb-12">
-          <h1 className="text-3xl font-medium text-gray-900 mb-4" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
+        <div className="text-center mb-8 sm:mb-12">
+          <h1 className="text-2xl sm:text-3xl font-medium text-gray-900 mb-4 px-4" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
             What type of pet care services do you provide?
           </h1>
         </div>
 
         {/* Pet Care Types Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12 px-4">
           {petCareTypes.map((type) => (
             <div
               key={type.id}

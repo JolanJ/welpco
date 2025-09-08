@@ -51,26 +51,26 @@ export default function WelperLocationPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4">
+      <div className="bg-white border-b border-gray-200 px-4 sm:px-6 py-4">
         <div className="max-w-7xl mx-auto">
           {/* Logo */}
           <div className="flex items-center justify-between mb-4">
-            <div className="text-2xl font-bold text-[#005C3C]">WELPCO®</div>
+            <div className="text-xl sm:text-2xl font-bold text-[#005C3C]">WELPCO®</div>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {/* Progress Bar */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <div className="relative">
             <div className="w-full bg-gray-200 rounded-full h-2">
               <div className="bg-[#4CA76A] h-2 rounded-full" style={{ width: '50%' }}></div>
             </div>
             {/* Progress Bubble */}
             <div className="absolute top-0 transform -translate-y-full -translate-x-1/2 -mt-2" style={{ left: '50%' }}>
-              <div className="bg-[#4CA76A] text-white text-sm px-3 py-1 rounded-lg relative">
+              <div className="bg-[#4CA76A] text-white text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-lg relative">
                 50%
                 {/* Triangle pointing down */}
                 <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#4CA76A]"></div>
@@ -80,18 +80,18 @@ export default function WelperLocationPage() {
         </div>
 
         {/* Title */}
-        <div className="text-center mb-16">
-          <h1 className="text-3xl font-medium text-gray-900 mb-4" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
+        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+          <h1 className="text-2xl sm:text-3xl font-medium text-gray-900 mb-4 px-4" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
             Please provide your location and select the
           </h1>
-          <h3 className="text-2xl font-medium text-gray-900" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
+          <h3 className="text-xl sm:text-2xl font-medium text-gray-900 px-4" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
             area you'd like to cover
           </h3>
         </div>
 
         {/* Form */}
-        <div className="max-w-lg mx-auto mb-16">
-          <div className="space-y-12">
+        <div className="max-w-lg mx-auto mb-8 sm:mb-12 lg:mb-16 px-4">
+          <div className="space-y-8 sm:space-y-12">
             {/* Location Input */}
             <div className="relative">
               <Input
@@ -99,16 +99,16 @@ export default function WelperLocationPage() {
                 placeholder="Enter Location here"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="w-full text-xl border-2 border-[#005C3C] rounded-full focus:border-[#005C3C] focus:outline-none placeholder-gray-400 pr-12"
-                style={{ padding: '0.75rem 1.5rem' }}
+                className="w-full text-lg sm:text-xl border-2 border-[#005C3C] rounded-full focus:border-[#005C3C] focus:outline-none placeholder-gray-400 pr-10 sm:pr-12"
+                style={{ padding: '0.75rem 1rem 0.75rem 1.5rem' }}
               />
-              <MapPin className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-600 w-5 h-5" />
+              <MapPin className="absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-gray-600 w-4 h-4 sm:w-5 sm:h-5" />
             </div>
 
             {/* Range Slider */}
             <div>
-              <div className="mb-4">
-                <div className="flex justify-between text-gray-700 font-medium">
+              <div className="mb-3 sm:mb-4">
+                <div className="flex justify-between text-gray-700 font-medium text-sm sm:text-base">
                   <span>0km</span>
                   <span>500km</span>
                 </div>
@@ -129,7 +129,7 @@ export default function WelperLocationPage() {
                 
                 {/* Range Value Display */}
                 <div 
-                  className="absolute top-6 transform -translate-x-1/2 text-gray-700 font-medium"
+                  className="absolute top-5 sm:top-6 transform -translate-x-1/2 text-gray-700 font-medium text-sm sm:text-base"
                   style={{ left: `${(range / 500) * 100}%` }}
                 >
                   {range}km
@@ -140,11 +140,11 @@ export default function WelperLocationPage() {
         </div>
 
         {/* Join Now Button */}
-        <div className="text-center">
+        <div className="text-center px-4">
           <button
             onClick={handleJoinNow}
             disabled={!location.trim()}
-            className={`px-12 py-3 rounded-full text-xl font-semibold transition-colors ${
+            className={`w-full sm:w-auto px-8 sm:px-12 py-3 sm:py-4 rounded-full text-lg sm:text-xl font-semibold transition-colors ${
               location.trim()
                 ? 'bg-[#005C3C] text-white hover:bg-[#00492F]'
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'

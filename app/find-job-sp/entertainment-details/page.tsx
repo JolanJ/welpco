@@ -124,22 +124,22 @@ export default function EntertainmentDetailsPage() {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <Users className="w-5 h-5 text-[#005C3C]" />
-              <h2 className="text-xl font-bold text-gray-900">Is the event for:</h2>
+              <h2 className="text-xl font-bold text-gray-900">Who is this event for?</h2>
             </div>
-            <div className="flex space-x-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
               <button
                 onClick={() => setEventType("adults")}
-                className={`px-6 py-3 border-2 rounded-full transition-colors ${
+                className={`px-4 sm:px-6 py-3 border-2 rounded-full transition-colors text-center ${
                   eventType === "adults"
                     ? 'bg-[#005C3C] text-white border-[#005C3C]'
                     : 'border-[#005C3C] text-[#005C3C] hover:bg-[#005C3C] hover:text-white'
                 }`}
               >
-                Adults
+                Adults Only
               </button>
               <button
                 onClick={() => setEventType("children")}
-                className={`px-6 py-3 border-2 rounded-full transition-colors ${
+                className={`px-4 sm:px-6 py-3 border-2 rounded-full transition-colors text-center ${
                   eventType === "children"
                     ? 'bg-[#005C3C] text-white border-[#005C3C]'
                     : 'border-[#005C3C] text-[#005C3C] hover:bg-[#005C3C] hover:text-white'
@@ -149,13 +149,13 @@ export default function EntertainmentDetailsPage() {
               </button>
               <button
                 onClick={() => setEventType("family")}
-                className={`px-6 py-3 border-2 rounded-full transition-colors ${
+                className={`px-4 sm:px-6 py-3 border-2 rounded-full transition-colors text-center ${
                   eventType === "family"
                     ? 'bg-[#005C3C] text-white border-[#005C3C]'
                     : 'border-[#005C3C] text-[#005C3C] hover:bg-[#005C3C] hover:text-white'
                 }`}
               >
-                Family
+                All Ages
               </button>
             </div>
           </div>
@@ -239,10 +239,10 @@ export default function EntertainmentDetailsPage() {
           <button
             onClick={handleContinue}
             disabled={!isFormValid()}
-            className={`px-12 py-3 rounded-full text-xl font-semibold transition-colors ${
+            className={`px-8 py-2 rounded-lg text-lg font-semibold ${
               isFormValid()
                 ? 'bg-[#005C3C] text-white hover:bg-[#00492F]'
-                : 'bg-[#005C3C] text-white cursor-not-allowed opacity-50'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
           >
             Continue

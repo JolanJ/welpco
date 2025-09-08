@@ -238,10 +238,10 @@ export default function EducationDetailsPage() {
           <button
             onClick={handleContinue}
             disabled={!isFormValid()}
-            className={`px-12 py-3 rounded-full text-xl font-semibold transition-colors ${
+            className={`px-8 py-2 rounded-lg text-lg font-semibold ${
               isFormValid()
                 ? 'bg-[#005C3C] text-white hover:bg-[#00492F]'
-                : 'bg-[#005C3C] text-white cursor-not-allowed opacity-50'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
           >
             Continue

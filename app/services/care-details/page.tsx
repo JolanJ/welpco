@@ -13,6 +13,8 @@ export default function CareDetailsPage() {
   const [children, setChildren] = useState([{ name: "", age: "", gender: "" }])
   const [date, setDate] = useState("")
   const [time, setTime] = useState("")
+  const [startTime, setStartTime] = useState("")
+  const [endTime, setEndTime] = useState("")
   const [frequency, setFrequency] = useState("")
   const [recurringType, setRecurringType] = useState("")
   const [payPerHour, setPayPerHour] = useState("")
@@ -54,12 +56,13 @@ export default function CareDetailsPage() {
   }
 
   const handleContinue = () => {
-    if (date && time && payPerHour) {
+    if (date && startTime && endTime && payPerHour) {
       // Navigate to location page with the form data
       const queryParams = new URLSearchParams({
         service: service,
         date: date,
-        time: time,
+        startTime: startTime,
+        endTime: endTime,
         payPerHour: payPerHour,
         notes: notes,
         children: JSON.stringify(children)
@@ -70,7 +73,7 @@ export default function CareDetailsPage() {
   }
 
   const isFormValid = () => {
-    return date && time && payPerHour && children.every(child => child.name && child.age)
+    return date && startTime && endTime && payPerHour && children.every(child => child.name && child.age)
   }
 
   return (
@@ -123,8 +126,8 @@ export default function CareDetailsPage() {
               </div>
               
               {children.map((child, index) => (
-                <div key={index} className="flex space-x-4 items-end">
-                  <div className="flex-1">
+                <div key={index} className="space-y-4">
+                  <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       {careType === "elderly-care" ? "Person Name" : "Child Name"}
                     </label>
@@ -133,26 +136,26 @@ export default function CareDetailsPage() {
                       placeholder={careType === "elderly-care" ? "Enter person's name" : "Enter child's name"}
                       value={child.name}
                       onChange={(e) => updateChild(index, "name", e.target.value)}
-                      className="w-full px-6 py-3 text-xl border-2 border-[#005C3C] rounded-full focus:border-[#005C3C] focus:outline-none placeholder-gray-400"
+                      className="w-full px-4 sm:px-6 py-3 sm:py-4 text-lg sm:text-xl border-2 border-[#005C3C] rounded-full focus:border-[#005C3C] focus:outline-none placeholder-gray-400"
                     />
                   </div>
-                  <div className="flex-1">
+                  <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
                     <input
                       type="number"
                       placeholder="Age"
                       value={child.age}
                       onChange={(e) => updateChild(index, "age", e.target.value)}
-                      className="w-full px-6 py-3 text-xl border-2 border-[#005C3C] rounded-full focus:border-[#005C3C] focus:outline-none placeholder-gray-400"
+                      className="w-full px-4 sm:px-6 py-3 sm:py-4 text-lg sm:text-xl border-2 border-[#005C3C] rounded-full focus:border-[#005C3C] focus:outline-none placeholder-gray-400"
                     />
                   </div>
                   {careType === "elderly-care" && (
-                    <div className="flex-1">
+                    <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">Gender</label>
                       <select
                         value={child.gender}
                         onChange={(e) => updateChild(index, "gender", e.target.value)}
-                        className="w-full px-6 py-3 text-xl border-2 border-[#005C3C] rounded-full focus:border-[#005C3C] focus:outline-none"
+                        className="w-full px-4 sm:px-6 py-3 sm:py-4 text-lg sm:text-xl border-2 border-[#005C3C] rounded-full focus:border-[#005C3C] focus:outline-none"
                       >
                         <option value="">Select gender</option>
                         <option value="male">Male</option>
@@ -162,12 +165,14 @@ export default function CareDetailsPage() {
                     </div>
                   )}
                   {children.length > 1 && (
-                    <button
-                      onClick={() => removeChild(index)}
-                      className="px-4 py-3 text-red-500 border-2 border-red-300 rounded-full hover:bg-red-50 transition-colors"
-                    >
-                      Remove
-                    </button>
+                    <div className="flex justify-end">
+                      <button
+                        onClick={() => removeChild(index)}
+                        className="px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base text-red-500 border-2 border-red-300 rounded-full hover:bg-red-50 transition-colors"
+                      >
+                        Remove
+                      </button>
+                    </div>
                   )}
                 </div>
               ))}
@@ -195,18 +200,32 @@ export default function CareDetailsPage() {
              />
            </div>
 
-                       {/* Time */}
+                       {/* Time Range */}
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
                 <Clock className="w-5 h-5 text-[#005C3C]" />
-                <h2 className="text-xl font-bold text-gray-900">Time</h2>
+                <h2 className="text-xl font-bold text-gray-900">Time Range</h2>
               </div>
-              <input
-                type="time"
-                value={time}
-                onChange={(e) => setTime(e.target.value)}
-                className="w-full px-6 py-3 text-xl border-2 border-[#005C3C] rounded-full focus:border-[#005C3C] focus:outline-none"
-              />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">From</label>
+                  <input
+                    type="time"
+                    value={startTime}
+                    onChange={(e) => setStartTime(e.target.value)}
+                    className="w-full px-6 py-3 text-xl border-2 border-[#005C3C] rounded-full focus:border-[#005C3C] focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">To</label>
+                  <input
+                    type="time"
+                    value={endTime}
+                    onChange={(e) => setEndTime(e.target.value)}
+                    className="w-full px-6 py-3 text-xl border-2 border-[#005C3C] rounded-full focus:border-[#005C3C] focus:outline-none"
+                  />
+                </div>
+              </div>
             </div>
 
             {/* Pay per hour */}
@@ -245,11 +264,11 @@ export default function CareDetailsPage() {
            <button
              onClick={handleContinue}
              disabled={!isFormValid()}
-             className={`px-12 py-3 rounded-full text-xl font-semibold transition-colors ${
-               isFormValid()
-                 ? 'bg-[#005C3C] text-white hover:bg-[#00492F]'
-                 : 'bg-[#005C3C] text-white cursor-not-allowed opacity-50'
-             }`}
+             className={`px-8 py-2 rounded-lg text-lg font-semibold ${
+              isFormValid()
+                ? 'bg-[#005C3C] text-white hover:bg-[#00492F]'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            }`}
            >
              Continue
            </button>
