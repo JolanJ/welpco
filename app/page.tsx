@@ -533,7 +533,7 @@ export default function LandingPage() {
             <div className="sm:col-span-2">
               <div className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">WELPCO</div>
               <p className="text-gray-300 mb-4 sm:mb-6 max-w-md text-sm sm:text-base">
-                Welpco is your premier destination for top-notch child care & home service.
+                Welpco is your premier destination for top-notch child care & home services.
               </p>
               <div className="flex space-x-3 sm:space-x-4">
                 <Youtube className="w-5 h-5 sm:w-6 sm:h-6 text-white hover:text-gray-300 cursor-pointer" />
